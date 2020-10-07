@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「LOJ2328」「清华集训 2017」避难所]]></title>
+    <url>%2Fblog%2FLOJ2328%2F</url>
+    <content type="text"><![CDATA[题意简述设 $F(n,b)$ 表示 $n$ 在 $b$ 进制下各个位上数字的乘积。如果想求一个最小的 $n$，使得 $p=F(n,b)$，那么一种贪心的方法是从 $b-1$ 开始往下试，如果是 $n$ 的约数就把它放在此时最低的位上。显然贪心是错的。例如 $b=9,p=216$，那么贪心会给出 $n=(3338)_9$，但正确答案是 $n=(666)_9$。给定 $b$，你需要给出一个 hack 数据 $p$ 以及它的最优解，或说明不存在。要求 $p\le 10^{18}$。$t$ 组数据，$t\le 200, 1\le b\le 100000$。 主要思路打表发现 $b&gt; 127$ 都有解。一种构造方法是令 $p = x^3y^3$，其中 $xy &lt; x^3 &lt; b, y^2 \ge b$。此时贪心就会翻车。枚举 $xy$，复杂度 $O(b)$。 不小于 $127$ 的，同样暴力打表，发现答案形式均可以是 $p = xy^2$ 的形式。于是可以 $O(b^2)$ 出解。 有意思的一点是 $b \le 12$ 时仅有 $b = 9$ 有解。 参考代码12345678910111213141516171819202122232425262728293031def check( x, n ): res = 0 i = n - 1 while i &gt;= 2: while x % i == 0: x /= i res += 1 i = min(x, i - 1) if res &gt; 3: return True else: return Falsedef solve(): n = int(input()) if n &lt;= 127: for i in range(n - 1, 0, -1): for j in range(n - 1, 0, -1): if check(i * j * j, n): print (3, i, j, j) return else: for i in range(n - 1, 0, -1): if check(i * i * i, n): print (3, i, i, i) return print (-1) returncase = int(input())while case &gt; 0: solve() case -= 1]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>构造题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「AGC047E」Product Simulation]]></title>
     <url>%2Fblog%2FAGC047E%2F</url>
     <content type="text"><![CDATA[最近感觉所有要做的题都是在 CF 上的。然而今天 CF 挂了。随便点开最近的 AGC。一看，怎么是造计算机题啊。 题意简述AGC 047E 给一个大小为 $N=2\times 10^5$ 的内存池 $a_i$，有两种操作： + i j k，$a_k\gets a_i + a_j$。 &lt; i j k，$a_k\gets [a_i &lt; a_j]$。 注意操作时不需要满足i, j, k互不相同。 输出一个操作序列使得按序列操作后 $a_2 = a_0\times a_1$。除了 $a_0, a_1$ 外其他元素初始均为 $0$。记你的操作序列长度为 $Q$，则应保证 $Q\le 2\times 10^5$。保证非负整数 $a_0,a_1\le 10^9$，所有元素在使用时应保证不大于 $10^{19}$。 主要思路首先我们会把一个位置 $i$ 设为 $0$：将 $i$ 和某个未使用的位置比较。其次我们也会把一个位置 $i$ 设为 $1$：将某个未使用的位置和 $a_0 + a_1$ 作比较。 注意到若 $a_0 = a_1 = 0$ 造不出 $1$，但是此时显然无论怎么操作都是 $0$，所以答案也是对的。 其次我们会把一个数左移 $k$ 位：自己加自己 $k$ 次就好了。 那么考虑如何取出一个数 $x$ 的所有二进制位。 先造出所有 $2^k$。然后从高到低确定每一位即可： 设已经确定的位置的和为 $C$，现在在确定第 $k$ 位。那么将 $C + 2^k$ 与 $x + 1$ 比较得到 $tmp$ 就是这位是否是 $1$。最后把 $C\gets C + tmp\times 2^k$ 即可。 于是把 $a_0, a_1$ 的二进制位都取出来，模拟二进制乘法即可。 最终取得了3903次的答案。感觉还没卡到最优但懒得卡了（ 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;struct ASK&#123; int O, I, J, K; inline ASK(): O(0), I(0), J(0), K(0)&#123;&#125; inline ASK(int _O, int _I, int _J, int _K): O(_O), I(_I), J(_J), K(_K)&#123;&#125;&#125;;vector&lt;ASK&gt; ans;#define ask(o, i, j, k) ans.push_back(ASK(o, i, j, k))inline void write()&#123; printf("%d\n", (int)ans.size()); for(ASK q: ans) printf("%c %d %d %d\n", "+&lt;"[q.O], q.I, q.J, q.K);&#125;//`+ i j k`: a[k] = a[i] + a[j]//`&lt; i j k`: a[k] = bool(a[i] &lt; a[j])#define N 300//a[N] = 0//a[N - 1] = a[0] + a[1]//a[N - 2] = 1, a[N - 2 - i] = 1 &lt;&lt; iinline void Reset(const int &amp;x)&#123; ask(1, x, N, x);&#125;inline void Set(const int &amp;x)&#123; ask(1, N, N - 1, x);&#125;inline void Set(const int &amp;x, const int &amp;y)&#123; ask(0, N, y, x);&#125;inline void Double(const int &amp;x)&#123; ask(0, x, x, x);&#125;inline void Shift(const int &amp;x, const int &amp;t)&#123; FOR(i, 1, t) Double(x);&#125;// inline void Make(const int &amp;x, const i64 &amp;v)&#123;// int m = 64 - __builtin_clzll(v);// while(m--)&#123;// if((v &gt;&gt; m) &amp; 1) ask(0, x, N - 2, x);// if(m) Double(x);// &#125;// &#125;// //use: 190001// inline void Add(const int &amp;x, const i64 &amp;v)&#123;// #define tmp 190001// if(!v) return;// int m = 64 - __builtin_clzll(v);// if(1ll &lt;&lt; (m - 1) == v)&#123;// ask(0, x, N - 1 - m, x);// return;// &#125;// Reset(tmp), Make(tmp, v);// ask(0, x, tmp, x);// #undef tmp// &#125;//use: [200, 202)inline void Split(const int &amp;x, int t)&#123; #define P 200 #define C 201 #define tmp 202 ask(0, x, N - 2, P); Reset(C); ROF(z, 29, 0)&#123; ask(0, C, N - 2 - z, tmp); ask(1, tmp, P, tmp); Set(t + z, tmp); Shift(tmp, z); ask(0, C, tmp, C); &#125; // return t + 30; #undef P #undef C #undef tmp&#125;//use: [100, 200)inline void Mul(const int &amp;x, const int &amp;a, const int &amp;b)&#123; #define A 100 #define B 150 #define tmp 199 Split(a, A), Split(b, B); ROF(k, 58, 0)&#123; int i, j; for(i = 0; i &lt;= k; ++i)&#123; j = k - i; if(i &lt;= 29 &amp;&amp; j &lt;= 29)&#123; ask(0, A + i, B + j, tmp); ask(1, N - 2, tmp, tmp); ask(0, x, tmp, x); &#125; &#125; if(k) Double(x); &#125; #undef A #undef B #undef tmp&#125;inline void init()&#123; ask(0, 0, 1, N - 1); Set(N - 2); FOR(i, 1, 29) ask(0, N - 1 - i, N - 1 - i, N - 2 - i);&#125;int main() &#123; init(); Mul(2, 0, 1); write(); return 0;&#125;]]></content>
@@ -781,8 +792,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>AtCoder</tag>
         <tag>数学</tag>
+        <tag>AtCoder</tag>
         <tag>计算几何</tag>
       </tags>
   </entry>
@@ -1116,8 +1127,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>dp</tag>
         <tag>猜结论</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -1140,8 +1151,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>猜结论</tag>
+        <tag>dp</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
