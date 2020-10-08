@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「CF1423M」Milutin's Plums]]></title>
+    <url>%2Fblog%2FCF1423M%2F</url>
+    <content type="text"><![CDATA[题意简述交互题。矩阵 $n\times m$，有性质：对于任意子矩阵（即任意行的子集和列的子集的交），设子矩阵中第 $i$ 行最小值最先出现的位置是 $L(i)$，则 $L(i)$ 单调不降。 通过不超过 $4(n + m)$ 次单点询问确定该矩阵的最小值。 主要思路咕 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155#include &lt;bits/stdc++.h&gt;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)#define MP make_pair#define pb push_backtypedef pair&lt;int, int&gt; PII;typedef vector&lt;int&gt; VI;#define SZ(x) ((int)(x).size())#define Templ(T) template &lt;typename T&gt;inline int read() &#123; Rint ans = 0; reg char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) ans = ans * 10 + c - '0'; return ans;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#ifdef LOCAL#define N 1010int qry[N][N];int qry_cnt;#endifmap&lt;PII, int&gt; mem;inline int ask(int x, int y)&#123; #ifdef LOCAL return ++qry_cnt, qry[x][y]; #endif if(mem.count(MP(x, y))) return mem[MP(x, y)]; printf("? %d %d\n", x, y), fflush(stdout); return mem[MP(x, y)] = read();&#125;//由于列太多，需要去除一些不可能在 ans 里的列inline VI Reduce(VI rows, VI cols)&#123; VI ans; const int n = SZ(rows); int i = 0, r; for(int c: cols)&#123; if(ans.empty())&#123; ans.pb(c); continue; &#125; r = rows[i]; int &amp;y = ans.back(); if(ask(r, y) &lt;= ask(r, c))&#123; if(SZ(ans) == n)&#123; //所有行都已经找到了最前的可能的列 continue; &#125;else&#123; //显然此列不可能为这行的答案，于是将其配给下一行 ans.pb(c); ++i; &#125; &#125;else&#123; //修改该行匹配的列 y = c; &#125; &#125; //注意这里仅仅是简单地去掉了一些多余的列 //并不具有正确性 return ans;&#125;//(rows[i], ans[i]) 为该行最小且最前的VI Solve(VI rows, VI cols)&#123; if(SZ(rows) &lt; SZ(cols))&#123; cols = Reduce(rows, cols); &#125; const int n = SZ(rows), m = SZ(cols); VI nrows; for(int i = 1; i &lt; n; i += 2)&#123; nrows.pb(rows[i]); &#125; VI nans; if(!nrows.empty())&#123; nans = Solve(nrows, cols); &#125; //先做奇数行 VI ans; int lc = 0, rc; int x, y; FOR(i, 0, n - 1)&#123; if(i &amp; 1)&#123; //对于奇数行，已经做过了 ans.pb(nans[i &gt;&gt; 1]); continue; &#125; rc = m - 1; if(i + 1 &lt; n)&#123; rc = lc; while(cols[rc] &lt; nans[i &gt;&gt; 1])&#123; ++rc; &#125; &#125;else&#123; rc = m - 1; &#125; //根据题目性质，偶数行的答案应该在上下两行之间 x = rows[i]; y = cols[lc]; int mn = ask(x, y); FOR(j, lc + 1, rc)&#123; if(chkmin(mn, ask(x, cols[j])))&#123; y = cols[j]; &#125; &#125; //暴力找出来即可 ans.pb(y); lc = rc; &#125; return ans;&#125;int main() &#123; int n = read(), m = read(); #ifdef LOCAL FOR(i, 1, n) FOR(j, 1, m) qry[i][j] = read(); #endif VI rows, cols; FOR(i, 1, n) rows.pb(i); FOR(i, 1, m) cols.pb(i); VI ans = Solve(rows, cols); int mn = 0x3f3f3f3f; FOR(i, 0, n - 1)&#123; chkmin(mn, ask(rows[i], ans[i])); &#125; printf("! %d\n", mn), fflush(stdout); #ifdef LOCAL printf("ask times: %d\n", qry_cnt); int rmn = 0x3f3f3f3f; FOR(i, 1, n) FOR(j, 1, m) chkmin(rmn, qry[i][j]); printf("real min: %d\n", rmn); puts(mn == rmn ? (qry_cnt &lt;= 4 * (n + m) ? "AC" : "AC but too many times") : "WA"); #endif return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+        <tag>交互题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「LOJ2328」「清华集训 2017」避难所]]></title>
     <url>%2Fblog%2FLOJ2328%2F</url>
     <content type="text"><![CDATA[题意简述设 $F(n,b)$ 表示 $n$ 在 $b$ 进制下各个位上数字的乘积。如果想求一个最小的 $n$，使得 $p=F(n,b)$，那么一种贪心的方法是从 $b-1$ 开始往下试，如果是 $n$ 的约数就把它放在此时最低的位上。显然贪心是错的。例如 $b=9,p=216$，那么贪心会给出 $n=(3338)_9$，但正确答案是 $n=(666)_9$。给定 $b$，你需要给出一个 hack 数据 $p$ 以及它的最优解，或说明不存在。要求 $p\le 10^{18}$。$t$ 组数据，$t\le 200, 1\le b\le 100000$。 主要思路打表发现 $b&gt; 127$ 都有解。一种构造方法是令 $p = x^3y^3$，其中 $xy &lt; x^3 &lt; b, y^2 \ge b$。此时贪心就会翻车。枚举 $xy$，复杂度 $O(b)$。 不小于 $127$ 的，同样暴力打表，发现答案形式均可以是 $p = xy^2$ 的形式。于是可以 $O(b^2)$ 出解。 有意思的一点是 $b \le 12$ 时仅有 $b = 9$ 有解。 参考代码12345678910111213141516171819202122232425262728293031def check( x, n ): res = 0 i = n - 1 while i &gt;= 2: while x % i == 0: x /= i res += 1 i = min(x, i - 1) if res &gt; 3: return True else: return Falsedef solve(): n = int(input()) if n &lt;= 127: for i in range(n - 1, 0, -1): for j in range(n - 1, 0, -1): if check(i * j * j, n): print (3, i, j, j) return else: for i in range(n - 1, 0, -1): if check(i * i * i, n): print (3, i, i, i) return print (-1) returncase = int(input())while case &gt; 0: solve() case -= 1]]></content>
@@ -331,8 +343,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>图论</tag>
+        <tag>猜结论</tag>
         <tag>AtCoder</tag>
       </tags>
   </entry>
@@ -731,8 +743,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>dp</tag>
         <tag>图论</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
