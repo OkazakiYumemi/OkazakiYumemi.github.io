@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[「CF1423M」Milutin's Plums]]></title>
     <url>%2Fblog%2FCF1423M%2F</url>
-    <content type="text"><![CDATA[题意简述交互题。矩阵 $n\times m$，有性质：对于任意子矩阵（即任意行的子集和列的子集的交），设子矩阵中第 $i$ 行最小值最先出现的位置是 $L(i)$，则 $L(i)$ 单调不降。 通过不超过 $4(n + m)$ 次单点询问确定该矩阵的最小值。 主要思路转化问题为对每行 $i$ 求 $ans_i$ 使得 $(i, ans_i)$ 为该行最小最前的位置。 那么根据给定的性质，一个自然的想法是： 假如现在需要求答案的行集合为 $S$（按大小排序），已求出 $T = \{S_{2i}\}$ 的答案。则此时 $S$ 中未被求出答案的所有元素 $x$ 的答案都被限定在上下两元素的答案范围内，可以暴力询问求解。边界情况显然为 $|S| = 1$，此时使用 $m$ 次询问暴力求出答案即可。 那么对于集合 $S$，记其最多需要的询问次数为 $f(|S|) = f(\frac{|S|}{2}) + |S| + m$。则总共需要 $2n + m\log n$ 次。 尽管 $n$ 的系数足够小，但 $m$ 的系数太大。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155#include &lt;bits/stdc++.h&gt;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)#define MP make_pair#define pb push_backtypedef pair&lt;int, int&gt; PII;typedef vector&lt;int&gt; VI;#define SZ(x) ((int)(x).size())#define Templ(T) template &lt;typename T&gt;inline int read() &#123; Rint ans = 0; reg char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) ans = ans * 10 + c - '0'; return ans;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#ifdef LOCAL#define N 1010int qry[N][N];int qry_cnt;#endifmap&lt;PII, int&gt; mem;inline int ask(int x, int y)&#123; #ifdef LOCAL return ++qry_cnt, qry[x][y]; #endif if(mem.count(MP(x, y))) return mem[MP(x, y)]; printf("? %d %d\n", x, y), fflush(stdout); return mem[MP(x, y)] = read();&#125;//由于列太多，需要去除一些不可能在 ans 里的列inline VI Reduce(VI rows, VI cols)&#123; VI ans; const int n = SZ(rows); int i = 0, r; for(int c: cols)&#123; if(ans.empty())&#123; ans.pb(c); continue; &#125; r = rows[i]; int &amp;y = ans.back(); if(ask(r, y) &lt;= ask(r, c))&#123; if(SZ(ans) == n)&#123; //所有行都已经找到了最前的可能的列 continue; &#125;else&#123; //显然此列不可能为这行的答案，于是将其配给下一行 ans.pb(c); ++i; &#125; &#125;else&#123; //修改该行匹配的列 y = c; &#125; &#125; //注意这里仅仅是简单地去掉了一些多余的列 //并不具有正确性 return ans;&#125;//(rows[i], ans[i]) 为该行最小且最前的VI Solve(VI rows, VI cols)&#123; if(SZ(rows) &lt; SZ(cols))&#123; cols = Reduce(rows, cols); &#125; const int n = SZ(rows), m = SZ(cols); VI nrows; for(int i = 1; i &lt; n; i += 2)&#123; nrows.pb(rows[i]); &#125; VI nans; if(!nrows.empty())&#123; nans = Solve(nrows, cols); &#125; //先做奇数行 VI ans; int lc = 0, rc; int x, y; FOR(i, 0, n - 1)&#123; if(i &amp; 1)&#123; //对于奇数行，已经做过了 ans.pb(nans[i &gt;&gt; 1]); continue; &#125; rc = m - 1; if(i + 1 &lt; n)&#123; rc = lc; while(cols[rc] &lt; nans[i &gt;&gt; 1])&#123; ++rc; &#125; &#125;else&#123; rc = m - 1; &#125; //根据题目性质，偶数行的答案应该在上下两行之间 x = rows[i]; y = cols[lc]; int mn = ask(x, y); FOR(j, lc + 1, rc)&#123; if(chkmin(mn, ask(x, cols[j])))&#123; y = cols[j]; &#125; &#125; //暴力找出来即可 ans.pb(y); lc = rc; &#125; return ans;&#125;int main() &#123; int n = read(), m = read(); #ifdef LOCAL FOR(i, 1, n) FOR(j, 1, m) qry[i][j] = read(); #endif VI rows, cols; FOR(i, 1, n) rows.pb(i); FOR(i, 1, m) cols.pb(i); VI ans = Solve(rows, cols); int mn = 0x3f3f3f3f; FOR(i, 0, n - 1)&#123; chkmin(mn, ask(rows[i], ans[i])); &#125; printf("! %d\n", mn), fflush(stdout); #ifdef LOCAL printf("ask times: %d\n", qry_cnt); int rmn = 0x3f3f3f3f; FOR(i, 1, n) FOR(j, 1, m) chkmin(rmn, qry[i][j]); printf("real min: %d\n", rmn); puts(mn == rmn ? (qry_cnt &lt;= 4 * (n + m) ? "AC" : "AC but too many times") : "WA"); #endif return 0;&#125;]]></content>
+    <content type="text"><![CDATA[题意简述交互题。矩阵 $n\times m$，有性质：对于任意子矩阵（即任意行的子集和列的子集的交），设子矩阵中第 $i$ 行最小值最先出现的位置是 $L(i)$，则 $L(i)$ 单调不降。 通过不超过 $4(n + m)$ 次单点询问确定该矩阵的最小值。 朗报：本题解已经被 hack，于是彻底死了。 主要思路转化问题为对每行 $i$ 求 $ans_i$ 使得 $(i, ans_i)$ 为该行最小最前的位置。 那么根据给定的性质，一个自然的想法是： 假如现在需要求答案的行集合为 $S$（按大小排序），已求出 $T = \{S_{2i}\}$ 的答案。则此时 $S$ 中未被求出答案的所有元素 $x$ 的答案都被限定在上下两元素的答案范围内，可以暴力询问求解。边界情况显然为 $|S| = 1$，此时使用 $m$ 次询问暴力求出答案即可。 那么对于集合 $S$，记其最多需要的询问次数为 $f(|S|) = f(\frac{|S|}{2}) + |S| + m$。则总共需要 $2n + m\log n$ 次。 尽管 $n$ 的系数足够小，但 $m$ 的系数太大。 咕了。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155#include &lt;bits/stdc++.h&gt;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)#define MP make_pair#define pb push_backtypedef pair&lt;int, int&gt; PII;typedef vector&lt;int&gt; VI;#define SZ(x) ((int)(x).size())#define Templ(T) template &lt;typename T&gt;inline int read() &#123; Rint ans = 0; reg char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) ans = ans * 10 + c - '0'; return ans;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#ifdef LOCAL#define N 1010int qry[N][N];int qry_cnt;#endifmap&lt;PII, int&gt; mem;inline int ask(int x, int y)&#123; #ifdef LOCAL return ++qry_cnt, qry[x][y]; #endif if(mem.count(MP(x, y))) return mem[MP(x, y)]; printf("? %d %d\n", x, y), fflush(stdout); return mem[MP(x, y)] = read();&#125;//由于列太多，需要去除一些不可能在 ans 里的列inline VI Reduce(VI rows, VI cols)&#123; VI ans; const int n = SZ(rows); int i = 0, r; for(int c: cols)&#123; if(ans.empty())&#123; ans.pb(c); continue; &#125; r = rows[i]; int &amp;y = ans.back(); if(ask(r, y) &lt;= ask(r, c))&#123; if(SZ(ans) == n)&#123; //所有行都已经找到了最前的可能的列 continue; &#125;else&#123; //显然此列不可能为这行的答案，于是将其配给下一行 ans.pb(c); ++i; &#125; &#125;else&#123; //修改该行匹配的列 y = c; &#125; &#125; //注意这里仅仅是简单地去掉了一些多余的列 //并不具有正确性 return ans;&#125;//(rows[i], ans[i]) 为该行最小且最前的VI Solve(VI rows, VI cols)&#123; if(SZ(rows) &lt; SZ(cols))&#123; cols = Reduce(rows, cols); &#125; const int n = SZ(rows), m = SZ(cols); VI nrows; for(int i = 1; i &lt; n; i += 2)&#123; nrows.pb(rows[i]); &#125; VI nans; if(!nrows.empty())&#123; nans = Solve(nrows, cols); &#125; //先做奇数行 VI ans; int lc = 0, rc; int x, y; FOR(i, 0, n - 1)&#123; if(i &amp; 1)&#123; //对于奇数行，已经做过了 ans.pb(nans[i &gt;&gt; 1]); continue; &#125; rc = m - 1; if(i + 1 &lt; n)&#123; rc = lc; while(cols[rc] &lt; nans[i &gt;&gt; 1])&#123; ++rc; &#125; &#125;else&#123; rc = m - 1; &#125; //根据题目性质，偶数行的答案应该在上下两行之间 x = rows[i]; y = cols[lc]; int mn = ask(x, y); FOR(j, lc + 1, rc)&#123; if(chkmin(mn, ask(x, cols[j])))&#123; y = cols[j]; &#125; &#125; //暴力找出来即可 ans.pb(y); lc = rc; &#125; return ans;&#125;int main() &#123; int n = read(), m = read(); #ifdef LOCAL FOR(i, 1, n) FOR(j, 1, m) qry[i][j] = read(); #endif VI rows, cols; FOR(i, 1, n) rows.pb(i); FOR(i, 1, m) cols.pb(i); VI ans = Solve(rows, cols); int mn = 0x3f3f3f3f; FOR(i, 0, n - 1)&#123; chkmin(mn, ask(rows[i], ans[i])); &#125; printf("! %d\n", mn), fflush(stdout); #ifdef LOCAL printf("ask times: %d\n", qry_cnt); int rmn = 0x3f3f3f3f; FOR(i, 1, n) FOR(j, 1, m) chkmin(rmn, qry[i][j]); printf("real min: %d\n", rmn); puts(mn == rmn ? (qry_cnt &lt;= 4 * (n + m) ? "AC" : "AC but too many times") : "WA"); #endif return 0;&#125;]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -38,7 +38,7 @@
   <entry>
     <title><![CDATA[《アオイトリ》共通]]></title>
     <url>%2Fblog%2F20201004%2F</url>
-    <content type="text"><![CDATA[假期尽量冲完 aoi tori 一条线。 ——20200930日记事与愿违，这人咕了。所以只看完了共通线。 知道紫社感觉很久了，毕竟我已经记不清了。想起这个是因为有一天有人给我推荐了《アオイトリ》。然后我「哦，这个社我感兴趣，但是没玩过」。当时我的网盘不限速手段恰好坏了，所以就咕了。 之后过了挺久，NEUTRINO出来了，nico扔给了我一首《ブルーバード》。鉴于我没有看过火影，脑海里浮现的是「我咕掉的作品好像也有一部叫《青鸟》……」。 结果不知道啥时候我在水的时候，看见一个神必人说《アマツツミ》汉化出了，立即到他给的链接里去下了下来。结果一看，体验版。当然后来抱着弃之可惜的心态玩了一小会。这个时候我就又想起了这部。 于是又咕了很久，直到开学第一周回来，我把它整到硬盘里了。有修改日期为证，2020/9/6 1:33解压完毕。然后我就把门锁好，开始推我「真正」推的第一部紫社作品。 以下剧透警告。 不到三分钟，我就庆幸刚刚把门锁好了。他妈的怎么一上来就 HS 啊！然而即使 HS 也阻挡不了我的睡意。于是在明理的第一个 HS 还没完，我就睡大觉去了。 律出门散步，顺便补充了一下刚才没说完的世界观。遇见反派，抛出来一个大主题，这段的展开感觉挺正常。回教堂，律遇到了不速之客——吸血鬼玛丽·哈克。百年前教堂的主人，变成吸血鬼后被迫离家漂泊直至如今，如今再次回到故里；家务全能多才多艺，不谙世事……这人设怎么感觉挺常见的。顺带一提「メアリー」的读法感觉挺洗脑的。 结果第二天（也就是「最初的三天 2/3」）继续听玛丽故事。 玛丽 「当然，这一百年来，我也有过要是那时候真的死掉就好了的想法」玛丽 「想过千百回」玛丽 「但是，能让我觉得那时候没死真的是太好了的理由毫无疑问，还要更多更多」玛丽 「想过千万回」玛丽 「但之所以能够有这些想法，也都是因为，我当时活了下来不是吗」玛丽 「也就是说，生者即为胜者」玛丽 「耶—咿♪」 不对劲啊。这孩子……怕不是回来寻死的吧。到这里的时候我突然有这种感觉。不知道是否和那一周恰好推到这往后一点点有关系。 第三天凌晨。律刚从电话恶魔的话里推出的自己的能力与玛丽撕心裂肺的叫喊（那张立绘应该是在这里第一次出现吧？）让我更加笃信了。然后确实也猜对了。ああ…… 嘛，知道她想死，而律又不想让她死，这一天的事情也就比较普通了。当然嘴炮是没用的。最后还是喝了律的血然后被拽出去，发现可以感受阳光的温暖了。 于是序章就这样结束了。 共通线五天，就来了三个主要角色。 第一天是海野明理。给人的气质，还有关于「悬崖下面」的谈话，一时让我说不上来感觉。「像是会招律喜欢的女孩子。反正律喜欢那种文静乖巧的女孩对吧」——小夜嘛，其实感觉不止是这样。 明理 「但是，前辈」在玛丽走过来的途中，她似乎有话和我说。明理 「如果出现对悬崖下面感兴趣的孩子，霍尔顿该怎么办呢」明理 「那个孩子特别特别地好奇悬崖下面是什么样子」明理 「掉下去会遇到什么，纯粹的孩子只是好奇地想知道这个，一点也不感到畏惧」明理 「如果，霍尔顿抓住了奔向悬崖孩子的手臂，就相当于否定了他想守护的纯粹——」明理 「他就会变成，他所否定的令人讨厌的成年人」明理 「但是，如果不制止的话，孩子肯定就会摔下去的吧」明理 「……霍尔顿会怎么办呢？」她又重复了一遍，随后停止了话语。『如果是你的话，会怎么做？』我想，她是在知道答案的情况下故意问我这个问题的。玛丽已经走过来了，我无法开口作答。恐怕——是明理特意挑了这个时机问我的。至于答案，我只能想到一个。『那就一起掉下去』。 个人线的展开大概会挺有意思的。 另外，妹抖服很可爱哦，あかり酱。 结果当晚律欲求不满和美果子来了一场。这里非常需要吐槽一点。尽管 CG 画得非常好，但也不知道是不是每次玩都是睡前，所以对 HS 完全没有感觉。又不是特别想C过去，但是看着又没啥事做，就只能喝水。就这样，这几天用水量倍增。 第二天，黑崎小夜。感觉，应该是真双胞胎吧？一点悲观，一点厌世，封存的套壳的少女心。猜测这里后面会有和母亲有关的展开？ 所以为什么又有 HS 我喝水喝得想吐哦。而且怎么这个这么长啊（恼） 第四天，赤锖理沙，律的第一次。目前对老师完全无感，不评价了。之后如果咕的话一定是先咕这条线。 然后（我猜测）一个很重要的剧情终于出现了——玛丽的剧本。我猜无论哪条线关于演这舞台剧的展开应该都会占有不少部分。 最后共通线就结束在「遵吾之圣名」的樱花树下（喂你莫非每次到温室的树下都要用这个 bgm 么）选妃。而且只要选就完事了（别告诉我个人线里什么选项都没有）。 好，总之先选了玛丽线。毕竟序章过后两人的缘分已经是同生死，最顺理成章的就是选玛丽做主角。 那么顺便奶一口最后玛丽肯定要变回人吧。]]></content>
+    <content type="text"><![CDATA[假期尽量冲完 aoi tori 一条线。 ——20200930日记事与愿违，这人咕了。所以只看完了共通线。 知道紫社感觉很久了，毕竟我已经记不清了。想起这个是因为有一天有人给我推荐了《アオイトリ》。然后我「哦，这个社我感兴趣，但是没玩过」。当时我的网盘不限速手段恰好坏了，所以就咕了。 之后过了挺久，NEUTRINO出来了，nico扔给了我一首《ブルーバード》。鉴于我没有看过火影，脑海里浮现的是「我咕掉的作品好像也有一部叫《青鸟》……」。 结果不知道啥时候我在水的时候，看见一个神必人说《アマツツミ》汉化出了，立即到他给的链接里去下了下来。结果一看，体验版。当然后来抱着弃之可惜的心态玩了一小会。这个时候我就又想起了这部。 于是又咕了很久，直到开学第一周回来，我把它整到硬盘里了。有修改日期为证，2020/9/6 1:33解压完毕。然后我就把门锁好，开始推我「真正」推的第一部紫社作品。 以下剧透警告。 不到三分钟，我就庆幸刚刚把门锁好了。他妈的怎么一上来就 HS 啊！然而即使 HS 也阻挡不了我的睡意。于是在明理的第一个 HS 还没完，我就睡大觉去了。 律出门散步，顺便补充了一下刚才没说完的世界观。遇见反派，抛出来一个大主题，这段的展开感觉挺正常。回教堂，律遇到了不速之客——吸血鬼玛丽·哈克。百年前教堂的主人，变成吸血鬼后被迫离家漂泊直至如今，如今再次回到故里；家务全能多才多艺，不谙世事……这人设怎么感觉挺常见的。顺带一提「メアリー」的读法感觉挺洗脑的。 结果第二天（也就是「最初的三天 2/3」）继续听玛丽故事。 玛丽 「当然，这一百年来，我也有过要是那时候真的死掉就好了的想法」玛丽 「想过千百回」玛丽 「但是，能让我觉得那时候没死真的是太好了的理由毫无疑问，还要更多更多」玛丽 「想过千万回」玛丽 「但之所以能够有这些想法，也都是因为，我当时活了下来不是吗」玛丽 「也就是说，生者即为胜者」玛丽 「耶—咿♪」 不对劲啊。这孩子……怕不是回来寻死的吧。到这里的时候我突然有这种感觉。不知道是否和那一周恰好推到这往后一点点有关系。 第三天凌晨。律刚从电话恶魔的话里推出的自己的能力与玛丽撕心裂肺的叫喊（那张立绘应该是在这里第一次出现吧？）让我更加笃信了。然后确实也猜对了。ああ…… 嘛，知道她想死，而律又不想让她死，这一天的事情也就比较普通了。当然嘴炮是没用的。最后还是喝了律的血然后被拽出去，发现可以感受阳光的温暖了。 于是序章就这样结束了。 共通线五天，就来了三个主要角色。 第一天是海野明理。给人的气质，还有关于「悬崖下面」的谈话，一时让我说不上来感觉。「像是会招律喜欢的女孩子。反正律喜欢那种文静乖巧的女孩对吧」——小夜嘛，其实感觉不止是这样。 明理 「但是，前辈」在玛丽走过来的途中，她似乎有话和我说。明理 「如果出现对悬崖下面感兴趣的孩子，霍尔顿该怎么办呢」明理 「那个孩子特别特别地好奇悬崖下面是什么样子」明理 「掉下去会遇到什么，纯粹的孩子只是好奇地想知道这个，一点也不感到畏惧」明理 「如果，霍尔顿抓住了奔向悬崖孩子的手臂，就相当于否定了他想守护的纯粹——」明理 「他就会变成，他所否定的令人讨厌的成年人」明理 「但是，如果不制止的话，孩子肯定就会摔下去的吧」明理 「……霍尔顿会怎么办呢？」她又重复了一遍，随后停止了话语。『如果是你的话，会怎么做？』我想，她是在知道答案的情况下故意问我这个问题的。玛丽已经走过来了，我无法开口作答。恐怕——是明理特意挑了这个时机问我的。至于答案，我只能想到一个。『那就一起掉下去』。 个人线的展开大概会挺有意思的。 另外，妹抖服很可爱哦，あかり酱。 结果当晚律欲求不满和美果子来了一场。这里非常需要吐槽一点。尽管 CG 画得非常好，但也不知道是不是每次玩都是睡前，所以对 HS 完全没有感觉。又不是特别想C过去，但是看着又没啥事做，就只能喝水。就这样，这几天用水量倍增。 第二天，黑崎小夜。感觉，应该是真双胞胎吧？一点悲观，一点厌世，封存的套壳的少女心。猜测这里后面会有和母亲有关的展开？ 所以为什么又有 HS 我喝水喝得想吐哦。而且怎么这个这么长啊（恼） 第四天，赤锖理沙，律的第一次。目前对老师完全无感，不评价了。之后如果咕的话一定是先咕这条线。 然后（我猜测）一个很重要的剧情终于出现了——玛丽的剧本。我猜无论哪条线关于演这舞台剧的展开应该都会占有不少部分。 最后共通线就结束在「遵吾之圣名」的樱花树下（喂你莫非每次到温室的树下都要用这个 bgm 么）选妃。而且只要选就完事了（别告诉我个人线里什么选项都没有）。 好，总之先选了玛丽线。毕竟序章过后两人的缘分已经是同生死，最顺理成章的就是选玛丽做主角。 那么顺便奶一口最后玛丽肯定要变回人吧。 事后（指写完这篇 blog 几天）发现语言支离破碎。应该和初次写这种东西，写的时候想睡觉（和推 gal 同一时段（睡前）），还有没推完任何线（就是说啊我觉得除了序章真没啥能写的）不无关系。不过第一次写这种东西失败也无可厚非……大概吧。]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -67,8 +67,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>构造</tag>
+        <tag>猜结论</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
@@ -92,8 +92,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -456,8 +456,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -481,9 +481,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -742,8 +742,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -792,8 +792,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -1023,8 +1023,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1069,8 +1069,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1138,9 +1138,9 @@
         <category>题解</category>
       </categories>
       <tags>
+        <tag>Codeforces</tag>
         <tag>猜结论</tag>
         <tag>dp</tag>
-        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1151,8 +1151,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
