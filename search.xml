@@ -89,15 +89,15 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>猜结论</tag>
+        <tag>构造</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[「CF1396E」Distance Matching]]></title>
     <url>%2Fblog%2FCF1396E%2F</url>
-    <content type="text"><![CDATA[题意简述CF1396E 一棵树大小为 $n$（偶数）。将点两两配对，一对的权值为两点在树上的距离。求方案时所有对的权值和为 $K$。$n\le 10^5$，需判断无解。 主要思路为缩短公式长度，定义 $M_2(x) = x \bmod 2$，$u, v$ 间匹配为 $m(u, v)$，某个方案得到的答案为 $S$。 设一条边 $e$ 将树分成两部分，其中节点数较少的为 $w_e$。不难发现，至少有 $M_2(w_e)$，至多有 $w_e$ 个匹配经过 $e$。所以对于一棵树 $T$，答案的下上界就分别是 $L(T) = \sum\limits_e M_2(w_e), R(T) = \sum\limits_e w_e$。又注意到 $S=\sum\limits_{m(u, v)}(\operatorname{dep}(u) + \operatorname{dep}(v) - 2\operatorname{dep}(\operatorname{lca}(u ,v)))\equiv \sum\limits_{u\in[1, n]}\operatorname{dep}(u)\equiv R(T)\pmod{2}$，故 $K$ 与 $R(T)$ 奇偶性相同也是一个有解的必要条件。（钦定根节点深度为 $0$。） 然后我们来证明这些就是有解的充分条件。$n = 2$显然成立。考虑归纳，下证若在 $n = 2n’ - 2$ 时命题成立，考虑 $n = 2n’$。首先我们取出一个重心 $G$，则此时 $\sum\limits_e w_e = \sum\limits_{i\neq G}\operatorname{siz}(i)$。 如果 $K = R(T)$，直接求出 dfs 序 $r_i$，将 $r_i$ 与 $r_{i+n/2}$ 匹配即可。（这里运用了一下移位技巧。） 否则，取 $G$ 的儿子 $g$ 使 $\operatorname{siz}(g)$ 最大。此时显然有 $\operatorname{siz}(g) \ge 2$（否则为上一种情况）。取节点 $w$ 为子树 $g$ 中深度最大且 $\operatorname{siz}(w)\ge 2$ 的节点。 此时，如果 $K + 2\operatorname{dep}(w) &gt; R(T)$，必然存在 $g$ 子树中的一个非叶节点 $u$ 使 $K + 2\operatorname{dep}(u) = R(T)$，匹配 $u$ 与 $u$ 的任意一个儿子，对其他点按照上面情况的移位技巧即可。 否则即 $K + 2\operatorname{dep}(w) \le R(T)$。 如果 $w$ 有两个或以上儿子 $u, v$，匹配并在树中删除它们，得到新树 $T’$。显然它们都是叶子节点，故 $K’ = K - 2, L(T’) = L(T) - 2, R(T’) = R(T) - 2(\operatorname{dep}(w) + 1)$。并且，此时 $T’$ 重心仍为 $G$，节点数减少 $2$，且 $K’\in[L(T’), R(T’)]$，故根据归纳假设有解。 如果 $w$ 只有一个儿子 $u$，匹配 $w, u$ 并删除它们，得到新树 $T’$。同理易得$K’ = K - 1, L(T’) = L(T) - 1, R(T’) = R(T) - 2\operatorname{dep}(w) - 1$。重心不变，节点数减少 $2$，根据归纳假设有解。 由此，我们证明了上述条件为有解的充要条件。 考虑如何构造，发现直接以重心为根，根据上述证明充分性的过程模拟即可。 由于操作的特殊性，复杂度可以做到 $O(n)$，但本人懒得动脑就直接写了个 $O(n\log n)$ 的。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131#include &lt;bits/stdc++.h&gt;namespace my_std &#123;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;typedef vector&lt;int&gt; vec;typedef pair&lt;int, int&gt; pii;#define MP(a, b) make_pair(a, b)#define fr first#define sc second#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;&#125; // namespace my_stdusing namespace my_std;#define MMR (1 &lt;&lt; 21)struct INPUT&#123; char buf[MMR], *s; INPUT()&#123; s = buf, fread(buf, 1, MMR, stdin); &#125; Templ(_Tp) inline INPUT&amp; operator &gt;&gt;(_Tp &amp;x)&#123; x = 0; while(*s &lt; 48) ++s; while(*s &gt; 47) x = x * 10 + *s++ - 48; return *this; &#125;&#125;fin;#define N 100010int n, n2;i64 K;vec E[N];int siz[N], mxs[N];int root;int dep[N], fth[N], vis[N];int oud[N];i64 L, R;set&lt;pii&gt; s[N], Q;void find_root(int u, int f)&#123; siz[u] = 1, mxs[u] = 0; for(Rint v: E[u]) if(v != f)&#123; find_root(v, u); siz[u] += siz[v], chkmax(mxs[u], siz[v]); &#125; chkmax(mxs[u], n - siz[u]); mxs[u] &lt;= n2 &amp;&amp; (root = u);&#125;void init(int u, int f, int root)&#123; siz[u] = 1; for(Rint v: E[u]) if(v != f)&#123; ++oud[u]; dep[v] = dep[u] + 1; fth[v] = u; init(v, u, root); siz[u] += siz[v]; &#125; if(siz[u] &gt; 1) s[root].insert(MP(dep[u], u)); L += siz[u] &amp; 1, R += siz[u];&#125;inline int get_son(int u)&#123; Rint v; while(E[u].size())&#123; v = E[u].back(), E[u].pop_back(); if(v != fth[u] &amp;&amp; !vis[v]) return v; &#125; return 0;&#125;inline void del(int u, int rt)&#123; Rint f = fth[u]; if(!--oud[f]) s[rt].erase(MP(dep[f], f));&#125;vec ans;void dfs(int u, int f)&#123; if(!vis[u]) ans.push_back(u); for(Rint v: E[u]) if(v != f) dfs(v, u);&#125;int main() &#123; fin &gt;&gt; n &gt;&gt; K; n2 = n &gt;&gt; 1; Rint u, v; FOR(i, 1, n - 1)&#123; fin &gt;&gt; u &gt;&gt; v; E[u].push_back(v), E[v].push_back(u); &#125; find_root(1, 0); for(Rint u: E[root])&#123; fth[u] = root; dep[u] = 1; init(u, root, u); if(siz[u] &gt; 1) Q.insert(MP(siz[u], u)); &#125; if(K &lt; L || K &gt; R || (K &amp; 1) != (R &amp; 1)) return puts("NO"), 0; puts("YES"); K = (R - K) &gt;&gt; 1; while(K)&#123; Rint rt = Q.rbegin()-&gt;sc; Q.erase(--Q.end()); Rint u = s[rt].rbegin()-&gt;sc, d = s[rt].rbegin()-&gt;fr; if(K &gt;= d)&#123; K -= d; Rint v = get_son(u); Rint w = get_son(u); if(!w) w = u; vis[v] = vis[w] = 1; del(v, rt), del(w, rt); printf("%d %d\n", v, w); &#125;else&#123; u = s[rt].lower_bound(MP(K, 0))-&gt;sc; Rint v = get_son(u); E[u].push_back(v); vis[u] = vis[v] = 1; printf("%d %d\n", u, v); break; &#125; siz[rt] -= 2; if(siz[rt] &gt; 1) Q.insert(MP(siz[rt], rt)); &#125; dfs(root, 0); Rint res = (int)ans.size() &gt;&gt; 1; FOR(i, 0, res - 1) printf("%d %d\n", ans[i], ans[i + res]); return 0;&#125; 参考资料liouzhou_101’s blog | CodeForces 1396E. Distance Matching]]></content>
+    <content type="text"><![CDATA[题意简述CF1396E 一棵树大小为 $n$（偶数）。将点两两配对，一对的权值为两点在树上的距离。求方案时使所有对的权值和为 $K$。$n\le 10^5$，需判断无解。 主要思路为缩短公式长度，定义 $M_2(x) = x \bmod 2$，$u, v$ 间匹配为 $m(u, v)$，某个方案得到的答案为 $S$。 设一条边 $e$ 将树分成两部分，其中节点数较少的为 $w_e$。不难发现，至少有 $M_2(w_e)$，至多有 $w_e$ 个匹配经过 $e$。所以对于一棵树 $T$，答案的下上界就分别是 $L(T) = \sum\limits_e M_2(w_e), R(T) = \sum\limits_e w_e$。又注意到 $S=\sum\limits_{m(u, v)}(\operatorname{dep}(u) + \operatorname{dep}(v) - 2\operatorname{dep}(\operatorname{lca}(u ,v)))\equiv \sum\limits_{u\in[1, n]}\operatorname{dep}(u)\equiv R(T)\pmod{2}$，故 $K$ 与 $R(T)$ 奇偶性相同也是一个有解的必要条件。（钦定根节点深度为 $0$。） 然后我们来证明这些就是有解的充分条件。$n = 2$显然成立。考虑归纳，下证若在 $n = 2n’ - 2$ 时命题成立，考虑 $n = 2n’$。首先我们取出一个重心 $G$，则此时 $\sum\limits_e w_e = \sum\limits_{i\neq G}\operatorname{siz}(i)$。 如果 $K = R(T)$，直接求出 dfs 序 $r_i$，将 $r_i$ 与 $r_{i+n/2}$ 匹配即可。（这里运用了一下移位技巧。） 否则，取 $G$ 的儿子 $g$ 使 $\operatorname{siz}(g)$ 最大。此时显然有 $\operatorname{siz}(g) \ge 2$（否则为上一种情况）。取节点 $w$ 为子树 $g$ 中深度最大且 $\operatorname{siz}(w)\ge 2$ 的节点。 此时，如果 $K + 2\operatorname{dep}(w) &gt; R(T)$，必然存在 $g$ 子树中的一个非叶节点 $u$ 使 $K + 2\operatorname{dep}(u) = R(T)$，匹配 $u$ 与 $u$ 的任意一个儿子，对其他点按照上面情况的移位技巧即可。 否则即 $K + 2\operatorname{dep}(w) \le R(T)$。 如果 $w$ 有两个或以上儿子 $u, v$，匹配并在树中删除它们，得到新树 $T’$。显然它们都是叶子节点，故 $K’ = K - 2, L(T’) = L(T) - 2, R(T’) = R(T) - 2(\operatorname{dep}(w) + 1)$。并且，此时 $T’$ 重心仍为 $G$，节点数减少 $2$，且 $K’\in[L(T’), R(T’)]$，故根据归纳假设有解。 如果 $w$ 只有一个儿子 $u$，匹配 $w, u$ 并删除它们，得到新树 $T’$。同理易得$K’ = K - 1, L(T’) = L(T) - 1, R(T’) = R(T) - 2\operatorname{dep}(w) - 1$。重心不变，节点数减少 $2$，根据归纳假设有解。 由此，我们证明了上述条件为有解的充要条件。 考虑如何构造，发现直接以重心为根，根据上述证明充分性的过程模拟即可。 由于操作的特殊性，复杂度可以做到 $O(n)$，但本人懒得动脑就直接写了个 $O(n\log n)$ 的。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131#include &lt;bits/stdc++.h&gt;namespace my_std &#123;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;typedef vector&lt;int&gt; vec;typedef pair&lt;int, int&gt; pii;#define MP(a, b) make_pair(a, b)#define fr first#define sc second#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;&#125; // namespace my_stdusing namespace my_std;#define MMR (1 &lt;&lt; 21)struct INPUT&#123; char buf[MMR], *s; INPUT()&#123; s = buf, fread(buf, 1, MMR, stdin); &#125; Templ(_Tp) inline INPUT&amp; operator &gt;&gt;(_Tp &amp;x)&#123; x = 0; while(*s &lt; 48) ++s; while(*s &gt; 47) x = x * 10 + *s++ - 48; return *this; &#125;&#125;fin;#define N 100010int n, n2;i64 K;vec E[N];int siz[N], mxs[N];int root;int dep[N], fth[N], vis[N];int oud[N];i64 L, R;set&lt;pii&gt; s[N], Q;void find_root(int u, int f)&#123; siz[u] = 1, mxs[u] = 0; for(Rint v: E[u]) if(v != f)&#123; find_root(v, u); siz[u] += siz[v], chkmax(mxs[u], siz[v]); &#125; chkmax(mxs[u], n - siz[u]); mxs[u] &lt;= n2 &amp;&amp; (root = u);&#125;void init(int u, int f, int root)&#123; siz[u] = 1; for(Rint v: E[u]) if(v != f)&#123; ++oud[u]; dep[v] = dep[u] + 1; fth[v] = u; init(v, u, root); siz[u] += siz[v]; &#125; if(siz[u] &gt; 1) s[root].insert(MP(dep[u], u)); L += siz[u] &amp; 1, R += siz[u];&#125;inline int get_son(int u)&#123; Rint v; while(E[u].size())&#123; v = E[u].back(), E[u].pop_back(); if(v != fth[u] &amp;&amp; !vis[v]) return v; &#125; return 0;&#125;inline void del(int u, int rt)&#123; Rint f = fth[u]; if(!--oud[f]) s[rt].erase(MP(dep[f], f));&#125;vec ans;void dfs(int u, int f)&#123; if(!vis[u]) ans.push_back(u); for(Rint v: E[u]) if(v != f) dfs(v, u);&#125;int main() &#123; fin &gt;&gt; n &gt;&gt; K; n2 = n &gt;&gt; 1; Rint u, v; FOR(i, 1, n - 1)&#123; fin &gt;&gt; u &gt;&gt; v; E[u].push_back(v), E[v].push_back(u); &#125; find_root(1, 0); for(Rint u: E[root])&#123; fth[u] = root; dep[u] = 1; init(u, root, u); if(siz[u] &gt; 1) Q.insert(MP(siz[u], u)); &#125; if(K &lt; L || K &gt; R || (K &amp; 1) != (R &amp; 1)) return puts("NO"), 0; puts("YES"); K = (R - K) &gt;&gt; 1; while(K)&#123; Rint rt = Q.rbegin()-&gt;sc; Q.erase(--Q.end()); Rint u = s[rt].rbegin()-&gt;sc, d = s[rt].rbegin()-&gt;fr; if(K &gt;= d)&#123; K -= d; Rint v = get_son(u); Rint w = get_son(u); if(!w) w = u; vis[v] = vis[w] = 1; del(v, rt), del(w, rt); printf("%d %d\n", v, w); &#125;else&#123; u = s[rt].lower_bound(MP(K, 0))-&gt;sc; Rint v = get_son(u); E[u].push_back(v); vis[u] = vis[v] = 1; printf("%d %d\n", u, v); break; &#125; siz[rt] -= 2; if(siz[rt] &gt; 1) Q.insert(MP(siz[rt], rt)); &#125; dfs(root, 0); Rint res = (int)ans.size() &gt;&gt; 1; FOR(i, 0, res - 1) printf("%d %d\n", ans[i], ans[i + res]); return 0;&#125; 参考资料liouzhou_101’s blog | CodeForces 1396E. Distance Matching]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -114,8 +114,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -478,8 +478,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -503,9 +503,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -764,8 +764,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -814,8 +814,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -926,8 +926,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>字符串</tag>
         <tag>AtCoder</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -939,8 +939,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>AtCoder</tag>
         <tag>找规律</tag>
+        <tag>AtCoder</tag>
       </tags>
   </entry>
   <entry>
@@ -1045,8 +1045,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1091,8 +1091,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1160,9 +1160,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
-        <tag>dp</tag>
         <tag>猜结论</tag>
+        <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1173,8 +1173,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1185,8 +1185,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>猜结论</tag>
+        <tag>dp</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
