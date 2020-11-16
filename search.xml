@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「CF1442E」Black, White and Grey Tree]]></title>
+    <url>%2Fblog%2FCF1442E%2F</url>
+    <content type="text"><![CDATA[题意简述给一棵树，树上每个节点都为灰色、白色或黑色。每次可以选择一个连通块中的一个节点集合，要求集合中不能同时存在黑色和白色的节点，然后删去集合中所有节点。问最少多少次可以把整棵树删完。 $n\le 200000$。 主要思路首先玩仅有黑色和白色。显然相同颜色的连通块可以缩成一个点，先钦定任意一条边两端颜色不同。不难发现答案为 $\lfloor{k\over 2}\rfloor+1$，其中 $k$ 为直径的长度（点的数量）。 那么有灰色的时候，就是要把每个灰色的点赋一种颜色，使得直径最短。不妨思考一下直径的求法：随便取一个点 $S_0$ 为根，dfs 找到树上深度最大的点 $S_1$；再以 $S_1$ 为根 dfs 找到深度最大的点 $S_2$；$S_1,S_2$ 即为直径的两个端点。 那么再次考虑仅有黑色和白色，不难发现直接套用上述算法，更改深度定义为「到根路径上极长颜色相同段个数」即可。 再考虑有灰色。如果 dfs 到一个灰色的点，我们钦定其为其最近的非灰色祖先的颜色。显然，（由于钦定了灰色点的颜色）产生贡献的地方仍然只有黑白间。但是在选深度最深点的时候，灰色点应该优先级低于黑白色的点的。就没了。 参考代码 12345678910111213141516171819202122232425262728293031323334353637383940#include&lt;bits/stdc++.h&gt;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#define N 200010int n, a[N], ans, rt, col;std::vector&lt;int&gt; E[N];void dfs(int u, int fa, int now, int dis)&#123; if(!col || chkmax(ans, dis)) rt = u, col = now; for(int v: E[u]) if(v != fa)&#123; dfs(v, u, a[v] ? a[v] : now, dis + ((now ^ a[v]) == 3)); &#125;&#125;void work()&#123; n = read(); ans = -1, col = 0; FOR(i, 1, n) a[i] = read(), E[i].clear(); FOR(i, 1, n - 1)&#123; int u = read(), v = read(); E[u].emplace_back(v), E[v].emplace_back(u); &#125; dfs(1, 0, a[1], 0); dfs(rt, 0, col, 0); printf("%d\n", (ans + 3) &gt;&gt; 1);&#125;int main()&#123; FOR(o, 1, read()) work();&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>构造</tag>
+        <tag>Codeforces</tag>
+        <tag>找规律</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「CodeChef WALKBT」Walks on the binary tree]]></title>
     <url>%2Fblog%2FCodeChef-WALKBT%2F</url>
     <content type="text"><![CDATA[题意简述CodeChef WALKBT 一棵高度为 $n$ 的满二叉树（节点数为 $2^{n+1}-1$），用一个 $[0,2^n)$ 的数 $X$ 表示一条根到叶子的路径（从最高位开始，为0则走左儿子，否则走右儿子）。 初始 $X = 0$，有两种操作共 $q$ 个： 将 $X$ 改为 $(X + 2^C) \bmod 2^n$，然后从根出发走到叶子。 询问当前有多少个节点至少被访问一次。 $n,q\le 10^5$。 主要思路考虑一次新增的节点数，不难发现是 $n$ 减去新的 $X$ 与之前所有数的 lcp 的最大值。不难发现这个最大值必然在新 $X$ 的前驱或后继中取得。 考虑加上 $2^C$ 的操作，实质上是把前面的一段1赋为0，把一个0赋为1。于是每个修改操作只会改变均摊 $O(1)$ 个位置。于是可以上棵可持久化线段树维护每个位的值。 那么如何比较大小？可以在可持久化线段树上二分第一个两数不同的位置，然后 $O(\log n)$ 比较。那么我们希望能够 $O(1)$ 比较两棵线段树上的一个区间是否完全相等。这个哈希一下就好了。 于是我们获得了一个 $O(\log n)$ 比较大小的方法，再套个set维护前驱后继就 $O(n\log^2n)$ 走了。 然后这题被出到模拟赛里有人被卡常了，所以是 CC 太快还是 CC 数据水啊（ 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131#include &lt;bits/stdc++.h&gt;namespace my_std &#123;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;typedef const int CI;#define fr first#define sc second#define MP make_pair#define Templ(T) template &lt;typename T&gt;inline int read() &#123; Rint ans = 0; reg char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) ans = ans * 10 + c - '0'; return ans;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#define m1 88888901#define m2 77777803&#125; // namespace my_stdusing namespace my_std;#define N 200010int pw1[N], pw2[N];const bool init = [&amp;]()&#123; *pw1 = *pw2 = 1; FOR(i, 1, N - 1)&#123; pw1[i] = (pw1[i - 1] &lt;&lt; 1) % m1; pw2[i] = (pw2[i - 1] &lt;&lt; 1) % m2; &#125; return true;&#125;();int n, q;int rt[N], lc[N &lt;&lt; 5], rc[N &lt;&lt; 5], s1[N &lt;&lt; 5], s2[N &lt;&lt; 5];int tt, cc;#define lt lc[t]#define rt rc[t]#define ls lc[s]#define rs rc[s]#define f1 s1[t]#define f2 s2[t]#define g1 s1[s]#define g2 s2[s]void upd(int &amp;t, CI &amp;s, CI &amp;l, CI &amp;r, CI &amp;p, CI &amp;v)&#123; t = ++cc; lt = ls, rt = rs; f1 = g1, f2 = g2; if(l == r) return f1 = f2 = v, void(); CI mid = (l + r) &gt;&gt; 1; if(p &lt;= mid) upd(lt, ls, l, mid, p, v); else upd(rt, rs, mid + 1, r, p, v); f1 = (s1[lt] + (i64)pw1[mid - l + 1] * s1[rt]) % m1; f2 = (s2[lt] + (i64)pw2[mid - l + 1] * s2[rt]) % m2;&#125;int is_1(CI &amp;t, CI &amp;l, CI &amp;r, CI &amp;p)&#123; if(!t) return 0; if(l == r) return s1[t]; CI mid = (l + r) &gt;&gt; 1; if(p &lt;= mid) return is_1(lt, l, mid, p); else return is_1(rt, mid + 1, r, p);&#125;pair&lt;bool, int&gt; cpr(CI &amp;t, CI &amp;s, CI &amp;l, CI &amp;r)&#123; if(l == r) return MP(f1 &lt;= g1, f1 == g1 ? -1 : l); CI mid = (l + r) &gt;&gt; 1; if(s1[rt] == s1[rs] &amp;&amp; s2[rt] == s2[rs]) return cpr(lt, ls, l, mid); else return cpr(rt, rs, mid + 1, r);&#125;#undef lt#undef rt#undef ls#undef rs#undef f1#undef f2#undef g1#undef g2#define upd(p, v) \ ++tt, upd(rt[tt], rt[tt - 1], 0, n - 1, p, v)#define cpr(t, s) \ cpr(t, s, 0, n - 1)struct cmp&#123; inline bool operator()(CI &amp;x, CI &amp;y)const&#123; return cpr(rt[x], rt[y]).fr; &#125;&#125;;typedef set&lt;int, cmp&gt; SCI;SCI st;i64 ans;inline void work()&#123; ans = 0, tt = 0, cc = 0; st.clear(); n = read(), q = read(); FOR(o, 1, q)&#123; char c = getchar(); while(c != '!' &amp;&amp; c != '?') c = getchar(); if(c == '?')&#123; printf("%lld\n", ans ? ans : 1); continue; &#125; int x = read(); while(x &lt; n &amp;&amp; is_1(rt[tt], 0, n - 1, x)) upd(x++, 0); if(x &lt; n) upd(x, 1); SCI::iterator i = st.insert(tt).fr, nxt = next(i), pre = prev(i); int res = n; if(i != st.begin()) chkmin(res, cpr(rt[*i], rt[*pre]).sc); if(nxt != st.end()) chkmin(res, cpr(rt[*i], rt[*nxt]).sc); ans += res + 1; // printf("%lld\n", ans); &#125;&#125;int main() &#123; int esac = read(); while(esac--) work(); return 0;&#125;]]></content>
@@ -9,8 +22,8 @@
       </categories>
       <tags>
         <tag>log数据结构</tag>
-        <tag>CodeChef</tag>
         <tag>线段树</tag>
+        <tag>CodeChef</tag>
       </tags>
   </entry>
   <entry>
@@ -66,7 +79,7 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造题</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -77,8 +90,8 @@
         <category>题解</category>
       </categories>
       <tags>
+        <tag>构造</tag>
         <tag>AtCoder</tag>
-        <tag>构造题</tag>
       </tags>
   </entry>
   <entry>
@@ -731,8 +744,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>莫队</tag>
         <tag>log数据结构</tag>
+        <tag>莫队</tag>
         <tag>线段树</tag>
       </tags>
   </entry>
@@ -1023,8 +1036,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>bitset</tag>
         <tag>Ynoi</tag>
+        <tag>bitset</tag>
       </tags>
   </entry>
   <entry>
@@ -1046,8 +1059,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Ynoi</tag>
         <tag>log数据结构</tag>
+        <tag>Ynoi</tag>
       </tags>
   </entry>
   <entry>
