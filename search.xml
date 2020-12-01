@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「Ynoi2018」GOSICK]]></title>
+    <url>%2Fblog%2FYnoi2018-GOSICK%2F</url>
+    <content type="text"><![CDATA[不知道哪个阴间搬题人，陆续给模拟赛里整了第二分块、第七分块、第十四分块。 第二分块之前写的空间垃圾时间垃圾然后懒得搞了。 第七分块并没有看懂题解。 于是就只能写写这个了。 卡常卡不过别人的主要原因是懒（确信） Idea：lxl Solution：lxl Std：lxl Data：lxl “点缀光辉的第十四分块” （妈呀这名字好中二啊（谁叫我要用日本轻小说中的东西命名真是作死）） 这题是我研究区间逆序对之后，枚举了一些区间pair贡献的题里面的一个 对这题的评价：8/11 —— lxl 博客 Luogu 5398 CometOJ contest#3 F 题意简述给定长为 $n$ 的正整数序列 $\langle a\rangle$，$m$ 次询问给一个区间 $[l, r]$。 查询 $l\le i, j\le r$，且 $a_i$ 是 $a_j$ 的倍数的二元组 $(i, j)$ 的个数。 值域 $[1, W]$，$n, m, W\le 5\times 10^5$。 主要思路前置知识：莫队二次离线。 然后就只用考虑求 $S([1, i], [1, i])$ 和 $S([1, i], [l, r])$ 力。 下面将以 $n, m, W$ 同阶讨论。 那实际上就两个操作： $O(n)$ 次令当前维护区间从 $[1, i - 1]$ 变为 $[1, i]$。 求 $S([1, i], [l, r])$，个数为 $O(n)$ 且长度和为 $O(n\sqrt{n})$。 考虑维护 $c(v), b(v)$ 分别表示 $v$ 的倍数/约数的个数。则加入一个数 $x$，新增的贡献就是 $c(x) + b(x) + 1$。 并且对于每个约数 $y$，$c(y)$ 要加 $1$；每个倍数 $z$，$b(z)$ 要加 $1$。 枚举约数 $O(\sqrt{n})$ 没啥问题。 枚举倍数 $O({n\over x})$ 时间，当 $x$ 太小就退化为 $O(n)$ 了。 于是试图阈值法，设阈值 $D=\sqrt{n}$。 然后 $x&gt;D$ 的就直接枚举倍数，$O(\sqrt{n})$；否则不管。 但是新加一个数的贡献就出问题了。于是维护一个 $cnt(x)$ 记 $x$ 的个数，然后加入数 $x$ 的贡献就是 $1+c(x)+\sum\limits_{d|x}cnt(d)$。 那么考虑第二个操作。 长度和为 $O(n\sqrt{n})$，所以先枚举 $[l, r]$ 的每个元素，假设当前元素值为 $x$。 $x$ 的倍数个数即 $c(x)$，这个已经处理好了；$x$ 的大于 $D$ 的约数个数即 $b(x)$，这个也已经处理好了；现在剩下求 $x$ 的不大于 $D$ 的约数个数。 由于 $D=\sqrt{n}$，可以枚举所有不大于 $D$ 的数 $t$，求 $[l, r]$ 中 $t$ 的倍数的数量之和。容易发现这个和就是刚才没求的东西。 $[l, r]$ 中 $t$ 的倍数的数量和可以直接前缀和，维护 $pre(i, t)$ 表示前 $i$ 个数中 $t$ 的倍数的个数。预处理 $O(nD)$。 于是做完了，时间复杂度 $O(n\sqrt{n})$。 卡常枚举一个数的因数可以 $O(n\log n)$ 空间时间预处理出来扔vector里。 如果直接维护 $pre(i, t)$，空间是 $O(nD)$，意味着 $D$ 大约只能开到 $180$。 然后俺真就直接开了 $180$，然后发现实际上跑得很慢（指勉强过）。 看了看 mrsrz 的代码，发现只开了 $D=99$，一改，果然快了不少（指快了不到 3s）。 反正卡不过 mrsrz 的手写 vector 和「阈值再分块」（其代码做 11 次连续 9 个数作为因数的信息，据说可以卡进 cache）。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208#include &lt;bits/stdc++.h&gt;namespace my_std &#123;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;typedef pair&lt;int, int&gt; PII;typedef vector&lt;int&gt; VI;#define pb push_back#define fr first#define sc second#define pq priority_queue#define MP make_pair#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;&#125; // namespace my_stdusing namespace my_std;#define MMR (1 &lt;&lt; 24)struct INBUF&#123; char buf[MMR], *s, *t; inline INBUF()&#123; t = (s = buf) + fread(buf, 1, MMR, stdin); &#125; inline INBUF&amp; operator &gt;&gt;(int &amp;x)&#123; x = 0; while(*s &lt; 48) s++; while(*s &gt; 47) x = x * 10 + (*s++ ^ 48); return *this; &#125;&#125;fin;struct OUTBUF&#123; char buf[MMR], *s; inline OUTBUF()&#123; s = buf; &#125; inline OUTBUF&amp; operator &lt;&lt;(i64 x)&#123; // assert(x &gt;= 0); static char tmp[20]; char *top = tmp; do&#123; *++top = (x % 10) ^ 48, x /= 10; &#125;while(x &gt; 0); while(top != tmp) *s++ = *top--; *s++ = 10; return *this; &#125; inline ~OUTBUF()&#123; fwrite(buf, 1, s - buf, stdout); &#125;&#125;fout;#define N 500005#define WM 500000int n, m;int a[N];int bl[N];int BB;struct ASK&#123; int l, r, i; inline bool operator &lt;(const ASK &amp;x)const&#123; return bl[l] != bl[x.l] ? l &lt; x.l : (bl[l] &amp; 1 ? r &lt; x.r : r &gt; x.r); &#125;&#125;ask[N];vector&lt;int&gt; dvs[N];// #define BB 846#define VN 101#define VB 99int pre[N][VN];//pre[i][v]: 前 i 个数中，是 v 倍数（包括 v）的数的个数struct Node&#123; int l, r, i, v;&#125;;vector&lt;Node&gt; qL[N], qR[N];int cnt[N];int cc[N];//cc[v]: v 的倍数（包括 v）的个数int bc[N];//bc[v]: v 的大于 VB 的约数（包括 v）的个数i64 ansL[N], ansR[N];i64 ans[N];int main() &#123; fin &gt;&gt; n &gt;&gt; m; BB = n / (sqrt(m * 2 / 3) + 1) + 1; int mx = 0; FOR(i, 1, n)&#123; Rint x; fin &gt;&gt; x; a[i] = x; bl[i] = bl[i - 1] + (i % BB == 1); chkmax(mx, a[i]); // FOR(j, 1, VB)&#123; // pre[i][j] = pre[i - 1][j] + (x % j == 0); // &#125; &#125; FOR(i, 1, mx)&#123; for(int j = i; j &lt;= mx; j += i)&#123; dvs[j].pb(i); &#125; &#125; FOR(i, 1, m) fin &gt;&gt; ask[i].l &gt;&gt; ask[i].r, ask[i].i = i; sort(ask + 1, ask + m + 1); ask[0].l = 1; FOR(i, 1, m)&#123; if(ask[i].r &gt; ask[i - 1].r)&#123; qR[ask[i - 1].l - 1].pb((Node)&#123; ask[i - 1].r + 1, ask[i].r, i, -1 &#125;); &#125;else if(ask[i].r &lt; ask[i - 1].r)&#123; qR[ask[i - 1].l - 1].pb((Node)&#123; ask[i].r + 1, ask[i - 1].r, i, 1 &#125;); &#125; if(ask[i].l &lt; ask[i - 1].l)&#123; qL[ask[i].r + 1].pb((Node)&#123; ask[i].l, ask[i - 1].l - 1, i, -1 &#125;); &#125;else if(ask[i].l &gt; ask[i - 1].l)&#123; qL[ask[i].r + 1].pb((Node)&#123; ask[i - 1].l, ask[i].l - 1, i, 1 &#125;); &#125; &#125; FOR(i, 1, n)&#123; reg const int x = a[i]; ansL[i] = ansL[i - 1] + cc[x] + 1; for(Rint j: dvs[x]) ansL[i] += cnt[j], ++cc[j]; if(x &gt; VB)&#123; for(int j = x; j &lt;= mx; j += x) ++bc[j]; &#125; ++cnt[x]; for(reg Node o: qR[i])&#123; reg i64 res = 0; FOR(j, o.l, o.r)&#123; res += cc[a[j]]; res += bc[a[j]]; &#125; // FOR(j, 1, VB)&#123; // res += (i64)cnt[j] * (pre[o.r][j] - pre[o.l - 1][j]); // &#125; o.v &gt; 0 ? (ans[o.i] += res) : (ans[o.i] -= res); &#125; &#125; memset(cnt, 0, sizeof(int) * N); memset(cc, 0, sizeof(int) * N); memset(bc, 0, sizeof(int) * N); ROF(i, n, 1)&#123; reg const int x = a[i]; ansR[i] = ansR[i + 1] + cc[x] + 1; for(Rint j: dvs[x]) ansR[i] += cnt[j], ++cc[j]; if(x &gt; VB)&#123; for(int j = x; j &lt;= mx; j += x) ++bc[j]; &#125; ++cnt[x]; for(reg Node o: qL[i])&#123; reg i64 res = 0; FOR(j, o.l, o.r)&#123; res += cc[a[j]]; res += bc[a[j]]; &#125; // FOR(j, 1, VB)&#123; // res += (i64)cnt[j] * (pre[o.r][j] - pre[o.l - 1][j]); // &#125; o.v &gt; 0 ? (ans[o.i] += res) : (ans[o.i] -= res); &#125; &#125; &#123; const int vL = 1, vR = VB; int *c = (int*)malloc(sizeof(int) * VB); memset(c, 0, sizeof(int) * VB); FOR(i, 1, n) FOR(j, vL, vR)&#123; pre[i][j - vL] = pre[i - 1][j - vL] + (a[i] % j == 0); &#125; FOR(i, 1, n)&#123; const int x = a[i]; for(reg Node o: qL[i])&#123; reg i64 res = 0; FOR(j, vL, vR)&#123; res += (i64)(cnt[j] - c[j - vL]) * (pre[o.r][j - vL] - pre[o.l - 1][j - vL]); &#125; o.v &gt; 0 ? (ans[o.i] += res) : (ans[o.i] -= res); &#125; if(vL &lt;= x &amp;&amp; x &lt;= vR) ++c[x - vL]; for(reg Node o: qR[i])&#123; reg i64 res = 0; FOR(j, vL, vR)&#123; res += (i64)c[j - vL] * (pre[o.r][j - vL] - pre[o.l - 1][j - vL]); &#125; o.v &gt; 0 ? (ans[o.i] += res) : (ans[o.i] -= res); &#125; &#125; free(c); &#125; reg i64 *res = (i64*)malloc(sizeof(i64) * N); FOR(i, 1, m)&#123; ans[i] += ansL[ask[i].r] + ansR[ask[i].l] - ansL[ask[i - 1].r] - ansR[ask[i - 1].l]; res[ask[i].i] = ans[i] += ans[i - 1]; &#125; FOR(i, 1, m) fout &lt;&lt; res[i]; free(res); return 0;&#125; 感觉这题难度主要在莫队二次离线，后面的思路其实非常自然。]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Ynoi</tag>
+        <tag>莫队</tag>
+        <tag>根号分治</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「CF493E」Vasya and Polynomial]]></title>
     <url>%2Fblog%2FCF493E%2F</url>
     <content type="text"><![CDATA[题意简述CF493E 给三个正整数 $A, B, C$，求有多少个非负整数系数多项式 $f(x)$，满足 $f(A)=B,f(B)=C$。无穷个则输出-1。有限个，则求出次数最高，并且系数从高到低字典序最小的一个。$A, B, C\le 10^{18},T\le 100$。 主要思路这个是打某个神奇模拟赛的时候做到的，看起来比原题加强了一点（好像并没有）。 首先特判掉特殊情况，只考虑 $A&lt;B&lt;C$。记 $f(A)=B,f(B)=C$ 为「基本条件」。 发现非负整数系数不知道怎么弄，就先来个整数系数。 那么显然可以构造一次函数 $L(x) = t_1x + t_0$，其中 $t_1 = {C-B\over B-A}$。如果 $t_1$ 不是整数，则不可能有满足「基本条件」的整系数多项式，直接无解。 考虑另一个满足「基本条件」的整系数多项式 $F(x)$，以及 $F(x)-L(x)=G(x)$。不难发现有 $G(A)=0,G(B)=0$，故 $G(x)$ 必含有因式 $(x-A)(x-B)$。 于是一个满足「基本条件」的整系数多项式可以被写成 $F(x)=L(x)+(x-A)(x-B)P(x)$ 的形式，其中 $P(x)$ 也是整系数多项式。 我们希望在 $L(x)$ 的基础上将 $F(x)$ 修改为非负整系数多项式。考虑到次数 $lim\le{\ln C\over\ln B}$ 不大，直接暴力求出 $P(x)$ 的系数即可。具体来说就是对于次数 $i\le lim - 2$，假设 $F(x)$ 当前次数的系数 $a_i&lt;0$，可以直接给 $P(x)$ 加一个 $\lceil{-a_i \over AB}\rceil x^i$ 来让其系数非负。 最后如果 $a_{lim-1}&lt;0$ 就无解了，否则获得了一个唯一的解。 至于这个解为什么唯一，通过本做法比较难证明，建议阅读原题解。当然也可以通过感性理解，比如发现自己没法构造出一种超过两个解的情况，就认为没有多解。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384#include &lt;bits/stdc++.h&gt;namespace my_std &#123;using namespace std;#define reg register#define Rint register int#define FOR(i, a, b) for (register int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (register int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;#define Templ(T) template &lt;typename T&gt;&#125; // namespace my_stdusing namespace my_std;#define MMR 70i64 A, B, C;i64 T1, T0;i64 K1, K0;i64 a[MMR];int a_l;#define dvc(x, y) (((x) - 1) / (y) + 1)void work()&#123; if(A == B)&#123; if(A == C)&#123; if(A == 1) return puts("-1"), void(); puts("2\n1 1 0"); return void(); &#125; return puts("0"), void(); &#125; if(B == C)&#123; printf("1\n0 %lld\n", B); return void(); &#125; if(A &gt; B || B &gt; C)&#123; return puts("0"), void(); &#125; if((C - B) % (B - A) != 0)&#123; return puts("0"), void(); &#125; T1 = (C - B) / (B - A); T0 = B - T1 * A; const int lim = log2(C) / log2(B); if(lim == 1)&#123; if(T0 &lt; 0) return puts("0"), void(); printf("1\n1 %lld %lld\n", T1, T0); return; &#125; K1 = (A + B), K0 = A * B; FOR(i, 0, lim) a[i] = 0; a[0] = T0, a[1] = T1; FOR(i, 0, lim - 2)&#123; if(a[i] &lt; 0)&#123; i64 W = dvc(-a[i], K0); a[i] += K0 * W; a[i + 1] -= K1 * W; a[i + 2] += W; &#125; &#125; if(a[lim - 1] &lt; 0)&#123; return puts("0"), void(); &#125; ROF(i, lim, 0) if(a[i] &gt; 0)&#123; a_l = i; break; &#125; printf("1\n%d ", a_l); ROF(i, a_l, 0) printf("%lld ", a[i]); puts("");&#125;int main() &#123; int esac; scanf("%d", &amp;esac); while(esac --)&#123; scanf("%lld%lld%lld", &amp;A, &amp;B, &amp;C); work(); &#125; return 0;&#125;]]></content>
@@ -8,8 +21,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>猜结论</tag>
+        <tag>Codeforces</tag>
         <tag>数学</tag>
       </tags>
   </entry>
@@ -32,8 +45,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
@@ -98,7 +111,7 @@
   <entry>
     <title><![CDATA[「LOJ2328」「清华集训 2017」避难所]]></title>
     <url>%2Fblog%2FLOJ2328%2F</url>
-    <content type="text"><![CDATA[题意简述设 $F(n,b)$ 表示 $n$ 在 $b$ 进制下各个位上数字的乘积。如果想求一个最小的 $n$，使得 $p=F(n,b)$，那么一种贪心的方法是从 $b-1$ 开始往下试，如果是 $n$ 的约数就把它放在此时最低的位上。显然贪心是错的。例如 $b=9,p=216$，那么贪心会给出 $n=(3338)_9$，但正确答案是 $n=(666)_9$。给定 $b$，你需要给出一个 hack 数据 $p$ 以及它的最优解，或说明不存在。要求 $p\le 10^{18}$。$t$ 组数据，$t\le 200, 1\le b\le 100000$。 主要思路打表发现 $b&gt; 127$ 都有解。一种构造方法是令 $p = x^3y^3$，其中 $xy &lt; x^3 &lt; b, y^2 \ge b$。此时贪心就会翻车。枚举 $xy$，复杂度 $O(b)$。 不小于 $127$ 的，同样暴力打表，发现答案形式均可以是 $p = xy^2$ 的形式。于是可以 $O(b^2)$ 出解。 有意思的一点是 $b \le 12$ 时仅有 $b = 9$ 有解。 参考代码12345678910111213141516171819202122232425262728293031def check( x, n ): res = 0 i = n - 1 while i &gt;= 2: while x % i == 0: x /= i res += 1 i = min(x, i - 1) if res &gt; 3: return True else: return Falsedef solve(): n = int(input()) if n &lt;= 127: for i in range(n - 1, 0, -1): for j in range(n - 1, 0, -1): if check(i * j * j, n): print (3, i, j, j) return else: for i in range(n - 1, 0, -1): if check(i * i * i, n): print (3, i, i, i) return print (-1) returncase = int(input())while case &gt; 0: solve() case -= 1]]></content>
+    <content type="text"><![CDATA[题意简述LOJ 2328 设 $F(n,b)$ 表示 $n$ 在 $b$ 进制下各个位上数字的乘积。如果想求一个最小的 $n$，使得 $p=F(n,b)$，那么一种贪心的方法是从 $b-1$ 开始往下试，如果是 $n$ 的约数就把它放在此时最低的位上。显然贪心是错的。例如 $b=9,p=216$，那么贪心会给出 $n=(3338)_9$，但正确答案是 $n=(666)_9$。给定 $b$，你需要给出一个 hack 数据 $p$ 以及它的最优解，或说明不存在。要求 $p\le 10^{18}$。$t$ 组数据，$t\le 200, 1\le b\le 100000$。 主要思路打表发现 $b&gt; 127$ 都有解。一种构造方法是令 $p = x^3y^3$，其中 $xy &lt; x^3 &lt; b, y^2 \ge b$。此时贪心就会翻车。枚举 $xy$，复杂度 $O(b)$。 不小于 $127$ 的，同样暴力打表，发现答案形式均可以是 $p = xy^2$ 的形式。于是可以 $O(b^2)$ 出解。 有意思的一点是 $b \le 12$ 时仅有 $b = 9$ 有解。 参考代码12345678910111213141516171819202122232425262728293031def check( x, n ): res = 0 i = n - 1 while i &gt;= 2: while x % i == 0: x /= i res += 1 i = min(x, i - 1) if res &gt; 3: return True else: return Falsedef solve(): n = int(input()) if n &lt;= 127: for i in range(n - 1, 0, -1): for j in range(n - 1, 0, -1): if check(i * j * j, n): print (3, i, j, j) return else: for i in range(n - 1, 0, -1): if check(i * i * i, n): print (3, i, i, i) return print (-1) returncase = int(input())while case &gt; 0: solve() case -= 1]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -150,8 +163,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>猜结论</tag>
+        <tag>构造</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
@@ -175,8 +188,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -539,8 +552,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -564,9 +577,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -825,8 +838,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -875,8 +888,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1106,8 +1119,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1152,8 +1165,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1221,9 +1234,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1234,8 +1247,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
