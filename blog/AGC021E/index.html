@@ -110,20 +110,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Okazaki Yumemi&#39;s blog">
-<meta property="og:url" content="http://okazakiyumemi.github.io/tags/碎碎念/index.html">
+  <meta name="description" content="题意简述AGC 021E 有 $n$ 条蛇，开始都是蓝色。你有 $k$ 个球，均为红色或蓝色，可以依次喂给蛇。一条蛇如果吃了一个球之后，吃的该颜色的球的总数恰好超过另一种颜色的球，则该蛇会变为该颜色。一个球的颜色序列合法仅当可以合理分配喂蛇顺序使得最后所有蛇都能变为红色。$n, k\le 5\times 10^5$。（由于「🐍️」的渲染效果无法预测，故用「蛇」。）">
+<meta name="keywords" content="AtCoder,计数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「AGC021E」球 Eat Chameleons">
+<meta property="og:url" content="http://okazakiyumemi.github.io/blog/AGC021E/index.html">
 <meta property="og:site_name" content="Okazaki Yumemi&#39;s blog">
+<meta property="og:description" content="题意简述AGC 021E 有 $n$ 条蛇，开始都是蓝色。你有 $k$ 个球，均为红色或蓝色，可以依次喂给蛇。一条蛇如果吃了一个球之后，吃的该颜色的球的总数恰好超过另一种颜色的球，则该蛇会变为该颜色。一个球的颜色序列合法仅当可以合理分配喂蛇顺序使得最后所有蛇都能变为红色。$n, k\le 5\times 10^5$。（由于「🐍️」的渲染效果无法预测，故用「蛇」。）">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-04T10:32:28.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Okazaki Yumemi&#39;s blog">
+<meta name="twitter:title" content="「AGC021E」球 Eat Chameleons">
+<meta name="twitter:description" content="题意简述AGC 021E 有 $n$ 条蛇，开始都是蓝色。你有 $k$ 个球，均为红色或蓝色，可以依次喂给蛇。一条蛇如果吃了一个球之后，吃的该颜色的球的总数恰好超过另一种颜色的球，则该蛇会变为该颜色。一个球的颜色序列合法仅当可以合理分配喂蛇顺序使得最后所有蛇都能变为红色。$n, k\le 5\times 10^5$。（由于「🐍️」的渲染效果无法预测，故用「蛇」。）">
 
 
 
 
 
 
-  <link rel="canonical" href="http://okazakiyumemi.github.io/tags/碎碎念/">
+  <link rel="canonical" href="http://okazakiyumemi.github.io/blog/AGC021E/">
 
 
 
@@ -133,7 +138,7 @@
   };
 </script>
 
-  <title>标签: 碎碎念 | Okazaki Yumemi's blog</title>
+  <title>「AGC021E」球 Eat Chameleons | Okazaki Yumemi's blog</title>
   
 
 
@@ -182,7 +187,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,7 +262,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -362,82 +367,233 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>碎碎念<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/AGC021E/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Okazaki Yumemi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Okazaki Yumemi's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/blog/20201228/" itemprop="url">
-              
-                <span itemprop="name">病</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">「AGC021E」球 Eat Chameleons
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-12-28T12:34:56+08:00" content="2020-12-28">
-          12-28
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
+              
+                
+              
+
+              <time title="创建时间：2021-01-04 16:38:43 / 修改时间：18:32:28" itemprop="dateCreated datePublished" datetime="2021-01-04T16:38:43+08:00">2021-01-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p><a href="https://atcoder.jp/contests/agc021/tasks/agc021_e" target="_blank" rel="noopener">AGC 021E</a></p>
+<p>有 $n$ 条蛇，开始都是蓝色。你有 $k$ 个球，均为红色或蓝色，可以依次喂给蛇。<br>一条蛇如果吃了一个球之后，吃的该颜色的球的总数恰好超过另一种颜色的球，则该蛇会变为该颜色。<br>一个球的颜色序列合法仅当可以合理分配喂蛇顺序使得最后所有蛇都能变为红色。<br>$n, k\le 5\times 10^5$。<br><del>（由于「🐍️」的渲染效果无法预测，故用「蛇」。）</del></p>
+<a id="more"></a>
+
+<h2 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h2><p>下面用<code>B</code>来表示蓝色球，<code>R</code>来表示红色球。</p>
+<p>一个显然的事实是，如果给两条未喂过球的蛇都喂了一些<code>B</code>，显然没有将这些<code>B</code>都喂给其中一条优。<br>考虑将这些蓝色的蛇喂回红色需要的<code>R</code>数量即可得到。<br>那么，一个球的颜色序列<strong>最后能够得到的红蛇最多的方案</strong>应该为：有一条蛇（下称「大蛇」）吃了最后一个球，并且为唯一一条可能吃了超过 $2$ 个球的蛇；其他蛇的吃球序列仅可能为<code>RB</code>或<code>R</code>。<br>（一个球的颜色序列<strong>最后能够得到的红蛇最多的方案</strong>即，开始假设有无数条蓝蛇，将这个球的颜色序列按顺序喂给蛇后使得最后所有喂过的蛇均为红色，并且红色的蛇的数量最多的一个方案。）</p>
+<p>另一个显然的事实是，如果一个球的颜色序列<strong>最后能够得到的最多红蛇数量</strong>为 $m\ge n$，则其一定能够得到 $n$ 条红蛇。<br>于是，我们考虑<strong>最后能够得到的最多红蛇数量</strong>为 $m$ 的球的颜色序列。</p>
+<p>除了大蛇以外应该还有 $m-1$ 条蛇，注意到这些蛇都会且仅会吃 $1$ 个<code>R</code>，不妨枚举这些<code>R</code>的位置；并且注意到上述定义中吃了最后一个球的是大蛇（实质上是为了钦定大蛇的位置，否则类似<code>RBRBRB</code>的序列则不知哪个是大蛇），所以这些<code>R</code>的位置仅能是前 $k-1$ 个球。<br>于是这里有 $\binom{k-1}{m-1}$ 种<strong>放置其他蛇的<code>R</code></strong>的方案。</p>
+<p>根据分析可得，每一种<strong>放置其他蛇的<code>R</code></strong>的方案都与<strong>最后能够得到的最多红蛇数量</strong>为 $m$ 的球的颜色序列一一对应。<br>于是答案即为 $\sum\limits_{m=n}^{k}\binom{k-1}{m-1}$。<br><br></p>
+<p><del>等等，证明呢</del><br><strong>以下内容不保证严谨性。</strong><br>证明一个<strong>放置其他蛇的<code>R</code></strong>的方案能够推出唯一一个<strong>最后能够得到的最多红蛇数量</strong>为 $m$ 的球的颜色序列：<br>考虑现在已经放置了 $m-1$ 个其他蛇的<code>R</code>，现在我们做以下操作：<br>从后到前依次考虑每个<code>R</code>的位置，在下一个空位放上一个<code>B</code>，构成一条吃球顺序为<code>RB</code>的蛇。<br>若一个<code>R</code>没有下一个空位，表示该蛇的吃球顺序为<code>R</code>。</p>
+<p>考虑剩下的位置（包括最后一个位置），假设有 $c$ 个。<br>如果 $c$ 为奇数，则依次在前 $c-1\over 2$ 个空位填上<code>B</code>，其他填上<code>R</code>；<br>否则依次在前 ${c\over 2}-1$ 个位置与最后一个位置填上<code>B</code>，其他空位填上<code>R</code>。</p>
+<p>此时即可满足，得到的颜色序列<strong>最后能够得到的红蛇数量</strong>为 $m$ ，且<strong>其他蛇的<code>R</code>尽量后</strong>的方案中，其他蛇的<code>R</code>是开始选出的<code>R</code>。</p>
+<p>以下是一个例子，用于感受上述过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">k = 12, m = 5</span><br><span class="line">..R.R...RR.</span><br><span class="line">..RBRB..RRB</span><br><span class="line">BBRBRBRRRRBR</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>证明一个<strong>最后能够得到的最多红蛇数量</strong>为 $m$ 的球的颜色序列能够推回唯一一个<strong>放置其他蛇的<code>R</code></strong>的方案：</p>
+<p>注意到在上述为每个其他蛇的<code>R</code>放置<code>B</code>后，整个序列中已经放置球的每个极长段，都有其中的<code>R</code>均与其中的<code>B</code>匹配（这里认为无<code>B</code>与其匹配的<code>R</code>不在极长段内）。<br>并且，由于大蛇的吃球序列的特殊性（<code>B...BR...R</code>或<code>B...BR...RB</code>），放置大蛇吃掉的球后，前 $k-1$ 个球中不会有更长的极长段产生。</p>
+<p>所以同理地，找出这些极长段（可以使用类似括号匹配的方式），剩余的序列即为大蛇的吃球序列和一些未匹配的<code>R</code>。<br>显然这些未匹配的<code>R</code>只能是这个剩余的序列<strong>次长前缀的一个后缀</strong>，找出最长的这样的后缀即可；剩余的即为大蛇的吃球序列。<br>如果这个剩余的序列本身都无法使大蛇变为红色，则该序列本身不合法。</p>
+<p>以上是一个例子，用于感受上述过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k = 14</span><br><span class="line">)(()()())((()(</span><br><span class="line">BRRBRBRBBRRRBR</span><br><span class="line">B........RR..R +5</span><br><span class="line">B........R...R +1</span><br><span class="line">m = 6</span><br></pre></td></tr></table></figure>
+
+<p>综上，即可得每一种<strong>放置其他蛇的<code>R</code></strong>的方案都与<strong>最后能够得到的最多红蛇数量</strong>为 $m$ 的球的颜色序列一一对应。</p>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><div><div class="fold_hider"><div class="close hider_title"> </div></div><div class="fold">
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> i64;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mod 998244353</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">ksm</span><span class="params">(<span class="keyword">int</span> x, i64 y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (; y; y &gt;&gt;= <span class="number">1</span>, x = (i64)x * x % mod)</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (i64)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">const</span> <span class="keyword">int</span> &amp;y)</span></span>&#123; x += y; <span class="keyword">if</span>(x &gt;= mod) x -= mod; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500010</span></span><br><span class="line"><span class="keyword">int</span> n, K;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fac[N], ifac[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> T)</span></span>&#123;</span><br><span class="line">    *fac = *ifac = <span class="number">1</span>;</span><br><span class="line">    FOR(i, <span class="number">1</span>, T) fac[i] = (i64)i * fac[i - <span class="number">1</span>] % mod;</span><br><span class="line">    ifac[T] = ksm(fac[T], mod - <span class="number">2</span>);</span><br><span class="line">    ROF(i, T - <span class="number">1</span>, <span class="number">1</span>) ifac[i] = (i + <span class="number">1l</span>l) * ifac[i + <span class="number">1</span>] % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">CC</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m &lt; <span class="number">0</span> || n &lt; m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> (i64)fac[n] * ifac[m] % mod * ifac[n - m] % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;K);</span><br><span class="line">    init(K);</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    FOR(i, n, K) inc(ans, CC(K - <span class="number">1</span>, i - <span class="number">1</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div></div>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AtCoder/" rel="tag"># AtCoder</a>
+          
+            <a href="/tags/计数/" rel="tag"># 计数</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/ffmpeg-和-youtube-dl-小记/" rel="next" title="ffmpeg 和 youtube-dl 小记">
+                <i class="fa fa-chevron-left"></i> ffmpeg 和 youtube-dl 小记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div id="gitalk-container">
+    </div>
+    
+  
+
+
 
         </div>
         
@@ -458,8 +614,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -626,9 +791,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -872,6 +1035,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意简述"><span class="nav-number">1.</span> <span class="nav-text">题意简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思路"><span class="nav-number">2.</span> <span class="nav-text">主要思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考代码"><span class="nav-number">3.</span> <span class="nav-text">参考代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -892,7 +1071,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1026,6 +1205,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -1048,6 +1231,32 @@
 
 
 
+
+
+  
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+
+  
+  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.css">
+
+  
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+    
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '6db7c68ddd3c276bde37',
+          clientSecret: '1974844dbe21a5dd8a900b8db524c7dc37012021',
+          repo: 'okazakiyumemi.github.io',
+          owner: 'OkazakiYumemi',
+          admin: ['OkazakiYumemi'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
