@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「CF1408H」Rainbow Triples]]></title>
+    <url>%2Fblog%2FCF1408H%2F</url>
+    <content type="text"><![CDATA[被模拟网络流打爆了。 题意简述CF1408H 给定一个长度为 $n$ 的序列 $a$。每次可以选出三个数删掉，需要保证左边和右边的都是 $0$，中间的不是 $0$ 且不能是之前删过的数。求删掉数的最大次数。$n\le 5\times 10^5$。 主要思路设 $cnt(x)$ 为序列中 $x$ 的数量，那么显然答案上界为 $m=\lfloor{cnt(0)\over 2}\rfloor$。假设一个位置左边至少有 $m$ 个 $0$，那么其左边一定可以选出一个 $0$ 来合成答案。右边同理。不难发现每个点总会满足上述性质中的一条，于是可以据此将节点划分为 $L, R$ 两个集合，$L$ 表示满足右边至少有 $m$ 个点的点集，$R$ 反之。 同时不难发现，如果 $L$ 中有数 $x$ 出现至少两次，更右的出现位置更优。$R$ 中同理。所以对于每种颜色 $x$，仅保留两个节点，记为 $l(x), r(x)$。 考虑网络流建图： 源点 $S$ 向每个颜色 $x$ 连一条流量为 $1$ 的边（颜色边）； $x$ 向 $l(x),r(x)$ 连一条流量为 $1$ 的边； $L$ 中每个下标 $i$ 向 $i - 1$ 连边，$R$ 中每个下标 $i$ 向 $i + 1$ 连边，流量均为 $+\infty$； 每个 $0$ 向汇点 $T$ 连一条流量为 $1$ 的边（零边）。 此时，该图的最大流就是需要求的答案。注意到，最大流等于最小割，考虑求解最小割。 显然，我们只会割去颜色边和零边。并且如果颜色边 $x$ 未被割去，则 $l(x)$ 前面的所有零边，$r(x)$ 后面的所有零边都需要被割去。因此，最小割方案必定为割去一段前缀零边，一段后缀零边，一部分颜色边。 枚举割走的 $L$ 中前缀零边，则对于每一段 $R$ 中的零后缀，割走这一段零边的代价是前缀长度、后缀长度、前后缀中均不存在的颜色数量的和。 不难推出，只需维护一个支持区间减一、全局最值的数据结构即可。 于是做完了，时间复杂度 $O(n\log n)$。 参考代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#define N 500010int n, a[N], m, Lm, Rm;int vis[N], pre[N], suf[N], ans;int Lw[N], Rw[N];int lim, cc;namespace DS&#123;#define lc t &lt;&lt; 1#define rc t &lt;&lt; 1 | 1#define ls lc, l, mid#define rs rc, mid + 1, rint mn[N &lt;&lt; 2], del[N &lt;&lt; 2];inline void Pu(int t)&#123; mn[t] = min(mn[lc], mn[rc]);&#125;inline void Pd(int t)&#123; if(del[t])&#123; const int d = del[t]; del[t] = 0; mn[lc] += d, mn[rc] += d; del[lc] += d, del[rc] += d; &#125;&#125;void Bld(int t, int l, int r)&#123; del[t] = 0; if(l == r) return mn[t] = l, void(); int mid = (l + r) &gt;&gt; 1; Bld(ls), Bld(rs); Pu(t);&#125;void Upd(int t, int l, int r, int L, int R)&#123; if(L &lt;= l &amp;&amp; r &lt;= R) return --mn[t], --del[t], void(); int mid = (l + r) &gt;&gt; 1; Pd(t); if(L &lt;= mid) Upd(ls, L, R); if(R &gt; mid) Upd(rs, L, R); Pu(t);&#125;inline void Upd(int l, int r)&#123; if(l &gt; r) return; Upd(1, 0, lim, l, r);&#125;&#125;inline void work()&#123; n = read(), cc = 0; memset(vis, 0, sizeof(int) * (n + 1)); FOR(i, 1, n) vis[a[i] = read()] = 1; suf[n + 1] = 0; FOR(i, 1, n) if(vis[i]) ++cc; FOR(i, 1, n) pre[i] = pre[i - 1] + (!a[i]); ROF(i, n, 1) suf[i] = suf[i + 1] + (!a[i]); m = pre[n] &gt;&gt; 1, ans = min(m, cc); Lm = 0; FOR(i, 1, n) Lm += pre[i] &lt;= m; Rm = Lm + 1; FOR(i, 1, n) Lw[i] = 0, Rw[i] = n + 1; FOR(i, 1, Lm) Lw[a[i]] = i; ROF(i, n, Rm) Rw[a[i]] = i; lim = suf[Rm]; DS::Bld(1, 0, lim); FOR(i, 1, n) if(vis[i] &amp;&amp; !Lw[i])&#123; DS::Upd(suf[Rw[i]], lim); chkmin(ans, cc + DS::mn[1]); &#125; FOR(i, 1, Lm) if(Lw[a[i]] == i)&#123; DS::Upd(suf[Rw[a[i]]], lim); chkmin(ans, cc + DS::mn[1] + pre[i]); &#125; printf("%d\n", ans);&#125;int main() &#123; int T = read(); while(T--) work(); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+        <tag>log数据结构</tag>
+        <tag>模拟网络流</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「AGC015F」Kenus the Ancient Greek]]></title>
     <url>%2Fblog%2FAGC015F%2F</url>
     <content type="text"><![CDATA[题意简述给出下列代码： 1234567891011121314151617def F(x, y): if x &lt; y: return F(y, x) if y == 0: return 0 return F(y, x % y) + 1def G(x, y): m = 0 for i in range(1, x + 1): for j in range(1, y + 1): m = max(m, F(i, j)) return mdef W(x, y): m = G(x, y) n = 0 for i in range(1, x + 1): for j in range(1, y + 1): if F(i, j) == m: n += 1 return n % 1000000007 有 $Q$ 个询问，每个询问两个整数 $x, y$，求 $G(x, y), W(x, y)$。$Q\le 3\times 10^5, x, y\le 10^{18}$。 主要思路设斐波那契数列为 $f$，$f_0 = f_1 = 1$。 第一问简单，因为最小的 $(x, y)$ 满足 $F(x, y) = k$ 即为 $(f_k, f_{k+1})$。 设满足 $F(x, y) = G(x, y) = k$ 的二元组 $(x, y)$ 为 $k$ 阶高对子。显然 $k$ 阶高对子数量巨大多，无法直接统计。 但是不难发现许多高对子经过一次迭代就会变得一样，于是试图把这些高对子缩在一起，用一个最小的来表示，称为 $k$ 阶妙对子。显然，$(x, y)$ 是妙对子当且仅当 $(x, y)$ 是高对子且 $y\le 2x$。那么 $(x, y)$ 这个妙对子实际上就表示了 $(x, y + i\times x), i\in \mathbf{N}$。$k$ 阶妙对子的数量很少，是 $O(k)$ 个。 给出前面一些妙对子： 1234(1, 2)(2, 3), (3, 4)(3, 5), (4, 7), (5, 7)(5, 8), (7, 11), (7, 12), (8, 11) 仔细一看，$k$ 阶妙对子就是将所有 $k-1$ 阶妙对子 $(x, y)\to (y, x + y)$，再加一个 $(f_{k+1}, f_{k-1} + f_{k+1})$。 然后就可以 $O(\log^2 lim + Q\log lim)$ 了。 参考代码哦另外要注意的是 $(i, i)$ 均为 $1$ 阶高对子，要特判。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)typedef long long i64;typedef pair&lt;i64, i64&gt; PLL;#define pb emplace_back#define X first#define Y second#define MP make_pair#define mod 10000'00007#define lim 100'0000'0000'0000'0000#define N 128i64 fib[N];vector&lt;PLL&gt; exc[N];int K;const bool __init__ = [ ]()&#123; fib[0] = fib[1] = 1; K = 0; while(fib[K] &lt;= lim) ++K, fib[K + 1] = fib[K] + fib[K - 1]; exc[1].pb(MP(1, 2)); FOR(i, 2, K)&#123; for(PLL t: exc[i - 1]) exc[i].pb(MP(t.Y, t.X + t.Y)); exc[i].pb(MP(fib[i + 1], fib[i - 1] + fib[i + 1])); &#125; return true;&#125;();int main() &#123; int Q; scanf("%d", &amp;Q); while(Q--)&#123; i64 x, y, z(0); scanf("%lld%lld", &amp;x, &amp;y); if(x &gt; y) swap(x, y); int k = 1; while(k &lt; K &amp;&amp; fib[k + 1] &lt;= x &amp;&amp; fib[k + 2] &lt;= y) ++k; for(PLL t: exc[k])&#123; if(t.X &lt;= x &amp;&amp; t.Y &lt;= y) z += (y - t.Y) / t.X + 1; if(t.Y &lt;= x) z += (x - t.Y) / t.X + 1; z %= mod; &#125; if(k == 1) (z += x) %= mod; printf("%d %lld\n", k, z); &#125; return 0;&#125;]]></content>
@@ -1270,8 +1283,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>猜结论</tag>
       </tags>
   </entry>
   <entry>
@@ -1294,8 +1307,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>猜结论</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
