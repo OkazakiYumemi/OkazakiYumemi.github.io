@@ -34,8 +34,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>AtCoder</tag>
         <tag>找规律</tag>
+        <tag>AtCoder</tag>
       </tags>
   </entry>
   <entry>
@@ -500,8 +500,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>图论</tag>
         <tag>猜结论</tag>
+        <tag>图论</tag>
         <tag>AtCoder</tag>
       </tags>
   </entry>
@@ -682,7 +682,7 @@
   <entry>
     <title><![CDATA[cmder初探]]></title>
     <url>%2Fblog%2Fcmder%E5%88%9D%E6%8E%A2%2F</url>
-    <content type="text"><![CDATA[我，一直有个梦想，就是在 Windows 下摆脱 cmd。 终于我这一天被它弄得心态崩溃，整了一个 cmder 来玩。 这啥这里有个详细的初步介绍。 好吧，这大概是个 Win 下的可移植的终端的整合包，让你随身携带命令别名、颜色主题之类的。 然后这里主要用来记录使用 cmder 遇到的一些问题。 λ很炫，但也很屑由于 cmder 将λ作为命令提示符，稍微上下键查看下前后的命令就会多出来一个无法删除的符号，令人谔谔。 于是vendor\clink.lua里面把某一行（因版本不同而不同，行开头是local cmder_prompt =）中的{lamb}改为$即可解决 cmd 的命令提示符问题。 bash 的命令提示符就麻烦些，要在vendor\git-for-windows\etc\profile.d\git-prompt.sh把某一行PS1=&quot;$PS1&quot;&#39;λ &#39; # prompt: always λ改为PS1=&quot;$PS1&quot;&#39;$ &#39; # prompt: always $就好了。 输入中文光标出问题若使用的是 Git，在vendor\profile.ps1里找到下面这一行： 1Microsoft.PowerShell.Utility\Write-Host &quot;`nλ &quot; -NoNewLine -ForegroundColor &quot;DarkGray&quot; λ改成$就好了。 隐藏 history正如 Linux 中国的这篇博客，Linux 下可以方便地隐藏 bash 记录。那么 Cmder 的 cmd，以及 git for windows 呢？ cmd 隐藏 historycmd 的 history 都在config\.history里，可以直接看到自己的history。 然后进config\settings，不难找到history_file_lines的行，是历史记录的保存条数。下面的history_ignore_space是一个bool变量，为1时可以通过在命令前加上一个空格（）来避免命令被加入history。 git for windows 隐藏 historygit for windows 的历史都在~\.bash_history里（在同一目录下，还能看见.gitconfig，即全局配置文件）。 执行export HISTCONTROL=ignorespace，即可将通过命令前加上来避免命令被加入history。]]></content>
+    <content type="text"><![CDATA[我，一直有个梦想，就是在 Windows 下摆脱 cmd。 终于我这一天被它弄得心态崩溃，整了一个 cmder 来玩。 这啥这里有个详细的初步介绍。 好吧，这大概是个 Win 下的可移植的终端的整合包，让你随身携带命令别名、颜色主题之类的。 然后这里主要用来记录使用 cmder 遇到的一些问题。 λ很炫，但也很屑由于 cmder 将λ作为命令提示符，稍微上下键查看下前后的命令就会多出来一个无法删除的符号，令人谔谔。 于是vendor\clink.lua里面把某一行（因版本不同而不同，行开头是local cmder_prompt =）中的{lamb}改为$即可解决 cmd 的命令提示符问题。 bash 的命令提示符就麻烦些，要在vendor\git-for-windows\etc\profile.d\git-prompt.sh把某一行PS1=&quot;$PS1&quot;&#39;λ &#39; # prompt: always λ改为PS1=&quot;$PS1&quot;&#39;$ &#39; # prompt: always $就好了。 输入中文光标出问题若使用的是 Git，在vendor\profile.ps1里找到下面这一行： 1Microsoft.PowerShell.Utility\Write-Host &quot;`nλ &quot; -NoNewLine -ForegroundColor &quot;DarkGray&quot; λ改成$就好了。 隐藏 history正如 Linux 中国的这篇博客，Linux 下可以方便地隐藏 bash 记录。那么 Cmder 的 cmd，以及 git for windows 呢？ cmd 隐藏 historycmd 的 history 都在config\.history里，可以直接看到自己的history。 然后进config\settings，不难找到history_file_lines的行，是历史记录的保存条数。下面的history_ignore_space是一个bool变量，为1时可以通过在命令前加上一个空格（）来避免命令被加入history。 git for windows 隐藏 historygit for windows 的历史都在~\.bash_history里。在同一目录下，还能看见.bash_profile，即全局配置文件。 在里面塞进去一行export HISTCONTROL=ignorespace，即可将通过命令前加上来避免命令被加入history。 实际上，HISTCONTROL有以下选项： 选项 效果 ignoredup 默认，忽略重复命令 ignorespace 忽略所有开头的命令 ignoreboth ignoredups和ignorespace的组合 erasedups 删除重复命令]]></content>
       <categories>
         <category>技术</category>
       </categories>
@@ -900,8 +900,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>图论</tag>
         <tag>dp</tag>
+        <tag>图论</tag>
       </tags>
   </entry>
   <entry>
@@ -961,8 +961,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>数学</tag>
         <tag>AtCoder</tag>
+        <tag>数学</tag>
         <tag>计算几何</tag>
       </tags>
   </entry>
@@ -1061,8 +1061,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>字符串</tag>
         <tag>AtCoder</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1074,8 +1074,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>AtCoder</tag>
         <tag>找规律</tag>
+        <tag>AtCoder</tag>
       </tags>
   </entry>
   <entry>
