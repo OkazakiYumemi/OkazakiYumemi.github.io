@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「GYM102341」Dedenne]]></title>
+    <url>%2Fblog%2FGYM102341D%2F</url>
+    <content type="text"><![CDATA[题意简述GYM102341D 一堆01串是 dictionary 仅当其中没有一个串为另一个的前缀，且每个串都不含子串00。 一个 dictionary $S$ 的 cost，是所有01串 $s$（不仅包含 $S$ 中的串）的 cost 的和。 对于一个01串 $s$，若其为 $k$ 个 $S$ 中串的前缀，则其 cost 为 $\sum\limits_{j=1}^k\lfloor1+\log_2j\rfloor$。 $t$ 组询问大小为 $n$ 的 dictionary 的 cost 的最小值，$t\le 5\times 10^4, 2\le n\le 10^{15}$。 主要思路首先 $f(k)=\sum\limits_{j=1}^k\lfloor1+\log_2j\rfloor$ 可以在 $O(\log n)$ 预处理后 $O(1)$ 计算。 设 $D(n)$ 为构造大小为 $n$ 的 dictionary 的最小代价，则 $D(1)=1$。 我们把串扔到 trie 上，那么显然地，$D(n) = f(n)+\min\limits_{i\le k&lt;n}\{f(k)+D(k)+D(n-k)\}$。这里 $k$ 是枚举左子树的叶子个数，$f(k)$ 是因为左边的串（因为不能出现00）要以01开头。（$k=1$ 时则不需要加上 $f(1)$。） 可以证明 $D$ 是下凸函数，同时 $f$ 也是下凸函数，因此 $f(k)+D(k)+D(n-k)$ 也是下凸的。因此可以三分 $k$。于是我们可以 $O(\log^2n)$ 地求出任意一个 $D(n)$。 显然这不够。我们不妨枚举增量 $\delta$，每次求出最大 $n’$ 使 $D(n’)=D(n)+\delta\cdot(n’-n)$，其中 $n$ 是目前确定的最远 $D$ 值。$n’$ 可以二分，且当 $n$ 足够大时，计算 $D(n’)$ 不会用到未确定的 $D$ 值。可以证明 $\delta$ 是 $O(\log^2n)$ 级别。（经过尝试，$n\le 10^{15}$ 时，增量 $\delta$ 仅有 $1840$。） 于是可以 $O(\log^5 n)$ 预处理上述所有东西，每次询问再 $O(\log n)$ 二分一下即可。 参考代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long i64;typedef vector&lt;i64&gt; VI;#define pb emplace_back#define Templ(T) template &lt;typename T&gt;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;constexpr i64 inf = 1'00000'00000'00000;constexpr i64 B = 1'000; // limit of brute forcei64 fp[55];i64 f(i64 k) &#123; int t = 64 - __builtin_clzll(k); return fp[t] + (k + 1 - (1ll &lt;&lt; (t - 1))) * t;&#125;// #define fk1(k) ((k) == 1 ? 0 : f(k))VI a, D;i64 Dsm[1024];i64 Dbrute(i64 n) &#123; // assert(n &lt;= B); if (Dsm[n] != 0) return Dsm[n]; i64 res = 1 + Dsm[n - 1]; // assert(Dsm[n - 1] != 0); for (i64 i = 2; i &lt;= n / 2; ++i) &#123; i64 tmp = f(i) + Dsm[i] + Dsm[n - i]; chkmin(res, tmp); &#125; return Dsm[n] = res + f(n);&#125;i64 Dget(i64 n) &#123; if (n &lt;= B) return Dbrute(n); int k = upper_bound(a.begin(), a.end(), n) - a.begin(); return D[k - 1] + k * (n - a[k - 1]);&#125;i64 Dcalc(i64 n) &#123; if (n &lt;= B) return Dbrute(n); i64 l = n / 3, r = n / 2; while (l &lt; r) &#123; i64 m = (l + r) / 2; i64 Dl = f(m) + Dget(m) + Dget(n - m); i64 Dr = f(m + 1) + Dget(m + 1) + Dget(n - m - 1); if (Dl &lt; Dr) r = m; else l = m + 1; &#125; return f(n) + f(l) + Dget(l) + Dget(n - l);&#125;int main() &#123; for (int i = 1; i &lt; 54; ++i) fp[i + 1] = fp[i] + (1ll &lt;&lt; (i - 1)) * i; a.pb(1), D.pb(1); Dsm[1] = 1; int delta = 1;#define Dexp(i) (D.back() + delta * ((i) - a.back())) // expect while (a.back() &lt; inf) &#123; i64 n = a.back(); while (n &lt; B &amp;&amp; Dcalc(n + 1) == Dexp(n + 1)) ++n; if (n &lt; B) &#123; D.pb(Dcalc(n)), a.pb(n), ++delta; continue; &#125; // assert(Dcalc(n / 2 * 3) != Dexp(n / 2 * 3)); i64 l = n, r = n / 2 * 3 - 1; while (l &lt; r) &#123; i64 m = (l + r + 1) / 2; if (Dcalc(m) == Dexp(m)) l = m; else r = m - 1; &#125; D.pb(Dcalc(l)), a.pb(l), ++delta; &#125; int Q; scanf("%d", &amp;Q); while (Q--) &#123; i64 n; scanf("%lld", &amp;n); printf("%lld\n", Dget(n)); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>dp</tag>
+        <tag>GYM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「GYM102798F」Skeleton Dynamization]]></title>
     <url>%2Fblog%2FGYM102798F%2F</url>
     <content type="text"><![CDATA[题意简述GYM101741H 想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。 这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。 spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以用 $(f, j)$ 唯一表示，前者为其出现的帧，后者为其在 $G$ 中对应的标号。 两点 $(f_1, j_1), (f_2, j_2)$ 间有边，仅当满足以下条件之一： $j_1 = j_2, f_1 + 1 = f_2$； $f_1 = f_2$，且在 $G$ 中有边 $(j_1, j_2)$。 现在 $G$ 丢失了，只剩下了标号被打乱的 spatial-temporal graph。请还原可能的 $F, J$ 并构造方案。如有多个方案，请最大化 $F$。 $n\le 10^5, m\le 2\times 10^5$。 主要思路上面讲了那么多废话，其实题意就是将给定的图看作分层图，每层内部边相同，相邻层只有对应点连边，最大化层数。 设度数最小的点为 $s$，显然其（在某个最优方案）一定是第一层的点。显然，$s$ 的度数不超过 $O(\sqrt{m})$。 枚举 $s$ 在第二层对应的点 $t$。从 $s,t$ 开始 bfs，则以 $s$ 为起点 bfs 到的点即为第一层的点。 已知第一层的点，就可以确定第二层的点，然后确定所有层的点。 如果过程中出现矛盾，则退出。 最后，检查每一层内部的边是否都相同。 时间复杂度 $O(m\sqrt{m})$。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt; ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt; ed_##i; --i)// Note the unusual definitiontypedef long long i64;typedef vector&lt;int&gt; VI;#define pb emplace_back#define X first#define Y second#define SZ(x) ((int)(x).size())#define Templ(T) template &lt;typename T&gt;inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#define N 100010int n, m;int F, J;// Frames, Jointsint ans[N];int S;VI E[N];inline void work(const int &amp;T)&#123; static int B[N], Q[N], w[N], res[N]; static VI e[N]; memset(B, -1, n &lt;&lt; 2); memset(w, -1, n &lt;&lt; 2); memset(res, -1, n &lt;&lt; 2); int *ql(Q), *qr(Q); B[S] = 0, B[T] = 1; *qr++ = S, *qr++ = T; while(ql != qr)&#123; int u = *ql++; for(int v: E[u]) if(B[v] == -1)&#123; B[v] = B[u]; *qr++ = v; &#125; &#125; int j(0), f, t(0); // (now) joints, frames FOR(i, 0, n) if(B[i] == 0)&#123; res[j] = i; w[i] = j++; t += SZ(E[i]); &#125;; if(n % j != 0) return; f = n / j; if(f &lt; F) return; t -= j; if(t &amp; 1) return; t &gt;&gt;= 1; if(f * t + (f - 1) * j != m) return; FOR(o, 1, f)&#123; int c = 0, *a = res + (o - 1) * j; FOR(i, 0, j)&#123; int u = a[i]; for(int v: E[u]) if(w[v] == -1)&#123; if(a[i + j] != -1) return; w[v] = w[u] + j; a[i + j] = v; ++c; &#125; &#125; if(c != j) return; &#125; FOR(i, 0, n) e[i].resize(0); FOR(o, 0, f)&#123; int *a = res + o * j; FOR(i, 0, j)&#123; int u = a[i]; for(int v: E[u]) if(w[v] / j == w[u] / j) e[w[v]].pb(w[u] % j); &#125; &#125; FOR(i, j, n) if(e[i] != e[i - j]) return; J = j; F = f; memcpy(ans, res, n &lt;&lt; 2);&#125;int main() &#123; n = read(), m = read(); FOR(i, 0, m)&#123; int u(read() - 1), v(read() - 1); E[u].pb(v), E[v].pb(u); &#125; &#123; int mn = m; FOR(i, 0, n) if(chkmin(mn, SZ(E[i]))) S = i; &#125; F = 1, J = n; FOR(i, 0, n) ans[i] = i; for(int i: E[S]) work(i); printf("%d %d\n", F, J); FOR(i, 0, n) printf("%d%c", ans[i] + 1, " \n"[i % J == J - 1]); return 0;&#125;]]></content>
@@ -94,8 +106,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>Codeforces</tag>
+        <tag>猜结论</tag>
         <tag>数学</tag>
       </tags>
   </entry>
@@ -118,8 +130,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
@@ -132,8 +144,8 @@
       </categories>
       <tags>
         <tag>log数据结构</tag>
-        <tag>CodeChef</tag>
         <tag>线段树</tag>
+        <tag>CodeChef</tag>
       </tags>
   </entry>
   <entry>
@@ -236,8 +248,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>构造</tag>
+        <tag>猜结论</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
@@ -261,8 +273,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -625,8 +637,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -650,9 +662,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -911,8 +923,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -961,8 +973,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -1192,8 +1204,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1238,8 +1250,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1307,9 +1319,9 @@
         <category>题解</category>
       </categories>
       <tags>
+        <tag>Codeforces</tag>
         <tag>猜结论</tag>
         <tag>dp</tag>
-        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1320,8 +1332,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
