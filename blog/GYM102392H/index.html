@@ -110,20 +110,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Okazaki Yumemi&#39;s blog">
-<meta property="og:url" content="http://okazakiyumemi.github.io/tags/找规律/index.html">
+  <meta name="description" content="为啥集训队作业只有 NEERC，没有 SEERC 题意简述GYM102392H 神树爷爷建了一棵树，大小为 $n$，根为 $1$，每个节点的父亲 $p_i&amp;lt;i$，连向父亲的边的边权 $w_i$。 神树爷爷把所有 $p_i, w_i$ 混在一起之后乱序扔给了你，记这个序列为 $a$。 显然一个 $a$ 可能对应多棵可能的树。 神树爷爷认为一棵树是k-good的，仅当 $1$ 到 $n$ 的路径">
+<meta name="keywords" content="构造,猜结论,树论,GYM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「GYM102392H」Tree Permutations">
+<meta property="og:url" content="http://okazakiyumemi.github.io/blog/GYM102392H/index.html">
 <meta property="og:site_name" content="Okazaki Yumemi&#39;s blog">
+<meta property="og:description" content="为啥集训队作业只有 NEERC，没有 SEERC 题意简述GYM102392H 神树爷爷建了一棵树，大小为 $n$，根为 $1$，每个节点的父亲 $p_i&amp;lt;i$，连向父亲的边的边权 $w_i$。 神树爷爷把所有 $p_i, w_i$ 混在一起之后乱序扔给了你，记这个序列为 $a$。 显然一个 $a$ 可能对应多棵可能的树。 神树爷爷认为一棵树是k-good的，仅当 $1$ 到 $n$ 的路径">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-18T10:35:02.792Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Okazaki Yumemi&#39;s blog">
+<meta name="twitter:title" content="「GYM102392H」Tree Permutations">
+<meta name="twitter:description" content="为啥集训队作业只有 NEERC，没有 SEERC 题意简述GYM102392H 神树爷爷建了一棵树，大小为 $n$，根为 $1$，每个节点的父亲 $p_i&amp;lt;i$，连向父亲的边的边权 $w_i$。 神树爷爷把所有 $p_i, w_i$ 混在一起之后乱序扔给了你，记这个序列为 $a$。 显然一个 $a$ 可能对应多棵可能的树。 神树爷爷认为一棵树是k-good的，仅当 $1$ 到 $n$ 的路径">
 
 
 
 
 
 
-  <link rel="canonical" href="http://okazakiyumemi.github.io/tags/找规律/">
+  <link rel="canonical" href="http://okazakiyumemi.github.io/blog/GYM102392H/">
 
 
 
@@ -133,7 +138,7 @@
   };
 </script>
 
-  <title>标签: 找规律 | Okazaki Yumemi's blog</title>
+  <title>「GYM102392H」Tree Permutations | Okazaki Yumemi's blog</title>
   
 
 
@@ -182,7 +187,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,7 +262,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -362,160 +367,247 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>找规律<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/GYM102392H/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Okazaki Yumemi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Okazaki Yumemi's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/blog/AGC015F/" itemprop="url">
-              
-                <span itemprop="name">「AGC015F」Kenus the Ancient Greek</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">「GYM102392H」Tree Permutations
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2021-01-04T21:32:13+08:00" content="2021-01-04">
-          01-04
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-18 18:29:18 / 修改时间：18:35:02" itemprop="dateCreated datePublished" datetime="2021-01-18T18:29:18+08:00">2021-01-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/CF1442E/" itemprop="url">
-              
-                <span itemprop="name">「CF1442E」Black, White and Grey Tree</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-11-07T23:07:47+08:00" content="2020-11-07">
-          11-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <p><del>为啥集训队作业只有 NEERC，没有 SEERC</del></p>
+<h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p><a href="https://codeforces.com/gym/102392/problem/H" target="_blank" rel="noopener">GYM102392H</a></p>
+<p>神树爷爷建了一棵树，大小为 $n$，根为 $1$，每个节点的父亲 $p_i&lt;i$，连向父亲的边的边权 $w_i$。</p>
+<p>神树爷爷把所有 $p_i, w_i$ 混在一起之后乱序扔给了你，记这个序列为 $a$。</p>
+<p>显然一个 $a$ 可能对应多棵可能的树。</p>
+<p>神树爷爷认为一棵树是<code>k-good</code>的，仅当 $1$ 到 $n$ 的路径上有 $k$ 条边；</p>
+<p>一棵树是<code>k-perfect</code>的，仅当这棵树是<code>k-good</code>的树中，$1$ 到 $n$ 路径上的边权和是最大的。</p>
+<p>现在神树爷爷希望你对所有 $1\le k\le n-1$，求出<code>k-perfect</code>树 $1$ 到 $n$ 路径上的边权和。</p>
+<p>如果没有<code>k-perfect</code>树，输出<code>-1</code>。</p>
+<p>$n\le 2\le 10^5, 1\le a_i\le n - 1$。</p>
+<a id="more"></a>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h2 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h2><p>先排序，下文中出现的序列，若未特殊说明，也默认已按不降排序。</p>
+<p>【引理 1】如果对于某些 $i$ 有 $a_i&gt;i$，那么根本没有合法的树。</p>
+<p>【证明】假设 $a_i&gt;i$。显然节点 $j\in[2, i+1]$ 的父亲都不大于 $i$，而此时最多仅有 $i-1$ 个不大于 $i$ 的数，故矛盾。</p>
+<hr>
+<p>【引理 2】如果对于某些 $i$ 有 $a_i=i$，那么节点 $i$ 在 $1$ 到 $n$ 的路径上。</p>
+<p>【证明】注意到节点的编号形成堆结构，即，$1$ 到 $n$ 的路径为每次选择最大的儿子向下走。<br>假设 $a_i=i$。类似【引理 1】的证明，$i-1$ 个不大于 $i$ 的数分别应是点 $j\in[2, i]$ 的父亲，而对于节点 $j&gt;i$，由于没有更多小于 $i$ 的数，其父亲均不小于 $i$。</p>
+<hr>
+<p>我们令 $T$ 为那些 $a_i=i$ 的位置集合，并令 $S$ 为所有未在 $T$ 中出现的 $a_i$ 第一次出现位置集合。<br>称<code>k-perfect</code>树 $1$ 到 $n$ 路径为<em>路径</em>，其上的边权和为<code>k-perfect</code>树的权值。</p>
+<p>【引理 3】对于任意 $|T|\le k\le |T|+|S|$，有<code>k-good</code>的树。并且，<code>k-perfect</code>树的权值可以用以下方法计算：</p>
+<p>标记 $T$ 中所有元素，以及 $S$ 中 $k-|T|$ 个最小元素。<code>k-perfect</code>树的权值即为未标记的位置中最大的 $k$ 个值的和。</p>
+<p>【证明】显然地，$|T|$ 是下界，$|T|+|S|$ 是上界。我们仅需证明他们都可被成功构造。</p>
+<p>记 $k-|T|$ 个 $S$ 中最小的元素为 $s_i(i\in[1,k-|T|])$。那么<em>路径</em>上应该包含节点 $a_i(i\in s\cup T)$ 与 $n$。<br>标记 $s, T$ 中所有位置，同时也标记所有在<em>路径</em>上的节点（这些节点除了 $1$ 都已有了父亲）。</p>
+<p>未标记的 $2n-2-k$ 个位置记为 $\langle x\rangle$，未标记的 $n-k-1$ 个节点记为 $\langle v\rangle$。钦定 $a_{x_i}$ 为 $v_i$ 的父亲 $(i\in[1,n-k-1])$。<br>剩下的 $n-1$ 个位置对应的 $a_i$ 均为边权，将最大的 $k$ 个分给<em>路径</em>，其他的任意分给其他边。</p>
+<p>这样我们得到了上述的答案，下面我们证明通过此方法构造出的确实是一棵树。</p>
+<p>由于我们希望分配 $a_{x_i}$ 为 $v_i$ 的父亲，故只需证明 $a_{x_i}&lt;v_i$。</p>
+<p>不妨假设对于某些 $i$ 有 $a_{x_i}\ge v_i$。</p>
+<p>记<em>路径</em>上的点为 $\langle p\rangle$，由于 $p_{k+1}=n$，我们可以找到 $j$ 使 $p_j\le a_{x_i}\le p_{j+1}$。即，有 $j$ 个已标记的节点不大于 $a_{x_i}$。<br>并且由于 $a_{x_i}\ge v_i$，即有 $i$ 个未标记的节点不大于 $a_{x_i}$。<br>因此，有 $a_{x_i}\ge i+j$。</p>
+<p>现在来考虑 $x_i$，有 $i-1$ 个未标记的位置不大于 $x_i$。<br>根据 $S,T$ 的定义，$p_j$ 对应的已标记位置应在 $x_i$ 之前。即，有 $j$ 个已标记位置在 $x_i$ 之前。</p>
+<p>于是 $i-1+j$ 个位置在 $x_i$ 之前，即 $x_i=i+j$。<br>即，$a_{x_i}\ge x_i$。</p>
+<p>【引理 1】中已经证明 $a_{x_i}\le x_i$，且根据【引理 2】，若 $a_{x_i}=x_i$，则 $x_i$ 必定在<em>路径</em>上。Contradiction!</p>
+<hr>
+<p>实现可以类似 two pointers，复杂度 $O(n)$。</p>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><div><div class="fold_hider"><div class="close hider_title"> </div></div><div class="fold">
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) c = getchar();</span><br><span class="line">    <span class="keyword">for</span> (; <span class="built_in">isdigit</span>(c); c = getchar())</span><br><span class="line">        x = x * <span class="number">10</span> + c - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100010</span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> c[N], b[N], a[N];</span><br><span class="line"><span class="keyword">int</span> L, R;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    n = read();</span><br><span class="line">    FOR(i, <span class="number">1</span>, (n - <span class="number">1</span>) * <span class="number">2</span>) R += !(c[read()]++);</span><br><span class="line">    FOR(i, <span class="number">1</span>, n - <span class="number">1</span>)&#123;</span><br><span class="line">        b[i] = b[i - <span class="number">1</span>] + c[i] - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(b[i] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            FOR(i, <span class="number">1</span>, n - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"-1 "</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        a[i] = c[i];</span><br><span class="line">        <span class="keyword">if</span>(!b[i - <span class="number">1</span>]) --a[i], ++L;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">1</span>, r = n - <span class="number">1</span>, d = <span class="number">0</span>;</span><br><span class="line">    FOR(i, <span class="number">1</span>, n - <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; L || i &gt; R)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1 "</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; L)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!b[l - <span class="number">1</span>] || !c[l]) ++l;</span><br><span class="line">            <span class="keyword">if</span>(a[l]) --a[l];</span><br><span class="line">            <span class="keyword">else</span> ans -= l, --d;</span><br><span class="line">            ++l;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(d != i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!a[r]) --r;</span><br><span class="line">            --a[r], ++d, ans += r;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld "</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/AGC011D/" itemprop="url">
-              
-                <span itemprop="name">「AGC011D」Half Reflector</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-01-13T12:48:13+08:00" content="2020-01-13">
-          01-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/SDOI2019-连续子序列/" itemprop="url">
-              
-                <span itemprop="name">「SDOI2019」连续子序列</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-31T16:15:33+08:00" content="2019-10-31">
-          10-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+</div></div>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/构造/" rel="tag"># 构造</a>
+          
+            <a href="/tags/猜结论/" rel="tag"># 猜结论</a>
+          
+            <a href="/tags/树论/" rel="tag"># 树论</a>
+          
+            <a href="/tags/GYM/" rel="tag"># GYM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/GYM102341D/" rel="next" title="「GYM102341」Dedenne">
+                <i class="fa fa-chevron-left"></i> 「GYM102341」Dedenne
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div id="gitalk-container">
+    </div>
+    
+  
+
+
 
         </div>
         
@@ -536,8 +628,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -952,6 +1053,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意简述"><span class="nav-number">1.</span> <span class="nav-text">题意简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思路"><span class="nav-number">2.</span> <span class="nav-text">主要思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考代码"><span class="nav-number">3.</span> <span class="nav-text">参考代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1106,6 +1223,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -1128,6 +1249,32 @@
 
 
 
+
+
+  
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+
+  
+  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.css">
+
+  
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+    
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '6db7c68ddd3c276bde37',
+          clientSecret: '1974844dbe21a5dd8a900b8db524c7dc37012021',
+          repo: 'okazakiyumemi.github.io',
+          owner: 'OkazakiYumemi',
+          admin: ['OkazakiYumemi'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
