@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[「GYM102798F」Skeleton Dynamization]]></title>
+    <url>%2Fblog%2FGYM102798F%2F</url>
+    <content type="text"><![CDATA[题意简述GYM101741H 想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。 这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。 spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以用 $(f, j)$ 唯一表示，前者为其出现的帧，后者为其在 $G$ 中对应的标号。 两点 $(f_1, j_1), (f_2, j_2)$ 间有边，仅当满足以下条件之一： $j_1 = j_2, f_1 + 1 = f_2$； $f_1 = f_2$，且在 $G$ 中有边 $(j_1, j_2)$。 现在 $G$ 丢失了，只剩下了标号被打乱的 spatial-temporal graph。请还原可能的 $F, J$ 并构造方案。如有多个方案，请最大化 $F$。 $n\le 10^5, m\le 2\times 10^5$。 主要思路上面讲了那么多废话，其实题意就是将给定的图看作分层图，每层内部边相同，相邻层只有对应点连边，最大化层数。 设度数最小的点为 $s$，显然其（在某个最优方案）一定是第一层的点。显然，$s$ 的度数不超过 $O(\sqrt{m})$。 枚举 $s$ 在第二层对应的点 $t$。从 $s,t$ 开始 bfs，则以 $s$ 为起点 bfs 到的点即为第一层的点。 已知第一层的点，就可以确定第二层的点，然后确定所有层的点。 如果过程中出现矛盾，则退出。 最后，检查每一层内部的边是否都相同。 时间复杂度 $O(m\sqrt{m})$。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt; ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt; ed_##i; --i)// Note the unusual definitiontypedef long long i64;typedef vector&lt;int&gt; VI;#define pb emplace_back#define X first#define Y second#define SZ(x) ((int)(x).size())#define Templ(T) template &lt;typename T&gt;inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;#define N 100010int n, m;int F, J;// Frames, Jointsint ans[N];int S;VI E[N];inline void work(const int &amp;T)&#123; static int B[N], Q[N], w[N], res[N]; static VI e[N]; memset(B, -1, n &lt;&lt; 2); memset(w, -1, n &lt;&lt; 2); memset(res, -1, n &lt;&lt; 2); int *ql(Q), *qr(Q); B[S] = 0, B[T] = 1; *qr++ = S, *qr++ = T; while(ql != qr)&#123; int u = *ql++; for(int v: E[u]) if(B[v] == -1)&#123; B[v] = B[u]; *qr++ = v; &#125; &#125; int j(0), f, t(0); // (now) joints, frames FOR(i, 0, n) if(B[i] == 0)&#123; res[j] = i; w[i] = j++; t += SZ(E[i]); &#125;; if(n % j != 0) return; f = n / j; if(f &lt; F) return; t -= j; if(t &amp; 1) return; t &gt;&gt;= 1; if(f * t + (f - 1) * j != m) return; FOR(o, 1, f)&#123; int c = 0, *a = res + (o - 1) * j; FOR(i, 0, j)&#123; int u = a[i]; for(int v: E[u]) if(w[v] == -1)&#123; if(a[i + j] != -1) return; w[v] = w[u] + j; a[i + j] = v; ++c; &#125; &#125; if(c != j) return; &#125; FOR(i, 0, n) e[i].resize(0); FOR(o, 0, f)&#123; int *a = res + o * j; FOR(i, 0, j)&#123; int u = a[i]; for(int v: E[u]) if(w[v] / j == w[u] / j) e[w[v]].pb(w[u] % j); &#125; &#125; FOR(i, j, n) if(e[i] != e[i - j]) return; J = j; F = f; memcpy(ans, res, n &lt;&lt; 2);&#125;int main() &#123; n = read(), m = read(); FOR(i, 0, m)&#123; int u(read() - 1), v(read() - 1); E[u].pb(v), E[v].pb(u); &#125; &#123; int mn = m; FOR(i, 0, n) if(chkmin(mn, SZ(E[i]))) S = i; &#125; F = 1, J = n; FOR(i, 0, n) ans[i] = i; for(int i: E[S]) work(i); printf("%d %d\n", F, J); FOR(i, 0, n) printf("%d%c", ans[i] + 1, " \n"[i % J == J - 1]); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>图论</tag>
+        <tag>GYM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「CodeChef LUCKYDAY」Lucky Days]]></title>
     <url>%2Fblog%2FCC-LUCKYDAY%2F</url>
-    <content type="text"><![CDATA[题意简述有序列 $S$，其中 $S_1=A,S_2=B;S_i=X\cdot S_{i-1}+Y\cdot S_{i-2}+Z(i&gt;2)\% P$。$Q$ 个询问求 $\sum\limits_{i=L}^{R}[S_i=C]$。$A,B,X,Y,C,P,Q$ 均给定，$P$ 为不超过 $10007$ 的质数，$0\le A,B,X,Y,C&lt;P$，$Q\le 2\times 10^4$，$1\le L\le R\le 10^{18}$。 主要思路先把 $X=0$ 或 $Y=0$ 等情况判了。此时循环节长度 $O(P)$，暴力找出即可。注意到此时可能循环节从 $3$ 开始。 设 $F_i=\begin{bmatrix}S_i\\S_{i+1}\\1\end{bmatrix},M=\begin{bmatrix}0&amp;1&amp;0\\Y&amp;X&amp;Z\\0&amp;0&amp;1\end{bmatrix}$，则有 $F_i = M\times F_{i-1}$。 不同的 $F_i$ 仅有 $P^2$ 个，由HDU 5451的经验，循环节一定是 $P^2-1$ 的约数，并且 $X&gt;0,Y&gt;0$ 时因为转移矩阵可逆，故一定是纯循环。 那么就先来找最小循环节 $R$。枚举约数矩阵快速幂即可。 然后考虑如何找到循环节中所有 $S_i=C$。由于循环节内相同 $F_i$ 只会出现一次，我们试图枚举 $m$，找到所有 $t=\begin{bmatrix}C\\m\\1\end{bmatrix}$ 的位置。即，找到 $0\le k&lt;R$ 使 $M^k F_1=t$ 成立。 设一阈值 $L$，则 $M^{dL-e}F_1=t$。由于 $M$ 可逆，变成 $M^{dL}F_1=M^et$，且 $d$ 是 $O({R\over L})$ 级别，$e$ 是 $O(L)$ 级别。 不难想到可以 $O({R\over L})$ 预处理出所有左边的可能值，扔到 Hash Table 里，就支持 $O(1)$ 查询。那么每次查询时，枚举 $e$，即可做到 $O(L)$ 单次查询。喂这不就是 BSGS…… 由于有 $O(P)$ 次查询（枚举 $m$），所以时间复杂度是 $O(LP)+O({R\over L})$，由于 $R$ 是 $O(P^2)$ 级别，故 $L$ 取 $\sqrt{P}$ 时复杂度最优为 $O(P\sqrt{P})$。 之后，每个询问就 $O(\log P)$ 了。 总时间复杂度 $O(P\sqrt{P} + Q\log P)$。 参考代码代码真的很烦，我的 Hash Table 都是抄 Sunli Chen 的。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;#define Templ(T) template &lt;typename T&gt;inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;inline i64 read64() &#123; i64 x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;int __MOD__;#define P __MOD__inline void inc(int &amp;x, const int &amp;y) &#123; x += y; if (x &gt;= P) x -= P;&#125;inline void dec(int &amp;x, const int &amp;y) &#123; x -= y; if(x &lt; 0) x += P;&#125;inline int ksm(int x, i64 y) &#123; int res = 1; for (; y; y &gt;&gt;= 1, x = (i64)x * x % P) if (y &amp; 1) res = (i64)res * x % P; return res;&#125;/*[ S(i) ] [0 1 0] [S(i-1)][S(i+1)] = [Y X Z] * [ S(i) ][ 1 ] [0 0 1] [ 1 ]*/#define MR 160#define SL 150// Thanks Eric Sunli Chen for his AMAZING hash table!#define Hash_P 2333333#define Hash_N 888888struct Hash_T &#123; int head[Hash_P], nxt[Hash_N], a[Hash_N], val[Hash_N], tot; void Clear() &#123; memset(head, 0, sizeof(head)); tot = 0; &#125; Hash_T() &#123; Clear(); &#125; inline int &amp;operator[](const int &amp;x) &#123; int tx = x % Hash_P; for (int i = head[tx]; i; i = nxt[i]) if (val[i] == x) return a[i]; nxt[++tot] = head[tx]; head[tx] = tot; val[tot] = x; a[tot] = 0; return a[tot]; &#125; inline int Find(const int &amp;x) const &#123; int tx = x % Hash_P; for (int i = head[tx]; i; i = nxt[i]) if (val[i] == x) return a[i]; return -1; &#125;&#125;;Hash_T rem;struct Matrix&#123; int a[3][3]; inline Matrix()&#123; memset(a, 0, 36); &#125; inline bool Unit()&#123; FOR(i, 0, 2) FOR(j, 0, 2) if(a[i][j] != (i == j)) return false; return true; &#125; inline Matrix operator *(const Matrix &amp;y)const&#123; Matrix z; FOR(i, 0, 2) FOR(k, 0, 2) FOR(j, 0, 2) (z.a[i][j] += a[i][k] * y.a[k][j]) %= P; return z; &#125;&#125;IE;struct Vector&#123; int a[3]; inline Vector()&#123; memset(a, 0, 12); &#125; friend inline Vector operator *(const Matrix &amp;x, const Vector &amp;y)&#123; Vector z; z.a[0] = (x.a[0][0] * y.a[0] + x.a[0][1] * y.a[1] + x.a[0][2] * y.a[2]) % P; z.a[1] = (x.a[1][0] * y.a[0] + x.a[1][1] * y.a[1] + x.a[1][2] * y.a[2]) % P; z.a[2] = 1; return z; &#125;&#125;;inline Matrix ksm(Matrix x, int y)&#123; Matrix z = IE; for(; y; y &gt;&gt;= 1, x = x * x) if(y &amp; 1) z = z * x; return z;&#125;inline int Hash(const Vector &amp;x)&#123; return x.a[0] * P + x.a[1];&#125;Matrix M, MM;Vector S;int A, B, X, Y, Z, C, Q;int Per, MxP;// int SL;vector&lt;int&gt; W;inline void work0()&#123; i64 L, R, res; while(Q--)&#123; L = read64(), R = read64(); res = 0; if(L == 1) res += R &gt;= 1 &amp;&amp; A == C, ++L; if(L == 2) res += R &gt;= 2 &amp;&amp; B == C, ++L; if(Z == C &amp;&amp; L &lt;= R) res += R - L + 1; printf("%lld\n", res); &#125;&#125;inline void work1()&#123; int *F = (int*)malloc(sizeof(int) * 5 * P), Per = 0; F[1] = A, F[2] = B; FOR(i, 3, 4 * P)&#123; F[i] = ((i64)F[i - 1] * X + (i64)F[i - 2] * Y + Z) % P; &#125; FOR(i, 5, 4 * P)&#123; if(F[i - 1] == F[3] &amp;&amp; F[i] == F[4])&#123; Per = i - 4; break; &#125; &#125; *F = 0; FOR(i, 1, Per) F[i] = F[i - 1] + (F[i + 2] == C); function&lt;i64(i64)&gt; Qry = [F, Per](i64 Lim)&#123; i64 res = 0; if(Lim &gt;= 1) res += A == C, --Lim; if(Lim &gt;= 1) res += B == C, --Lim; if(Lim &lt;= 0) return res; return res + F[Per] * (Lim / Per) + F[Lim % Per]; &#125;; i64 L, R; while(Q--)&#123; L = read64(), R = read64(); printf("%lld\n", Qry(R) - Qry(L - 1)); &#125; free(F);&#125;inline void init()&#123; M.a[0][1] = 1; M.a[1][0] = Y; M.a[1][1] = X; M.a[1][2] = Z; M.a[2][2] = 1; S.a[0] = A; S.a[1] = B; S.a[2] = 1; W.clear(); rem.Clear();&#125;inline int Find(Vector v)&#123; FOR(i, 0, SL - 1)&#123; int t = rem.Find(Hash(v)); if(t != -1 &amp;&amp; t - i &lt;= Per) return t - i; v = M * v; &#125; return 0;&#125;void work()&#123; A = read(), B = read(); X = read(), Y = read(), Z = read(); P = read(), C = read(), Q = read(); if(X == 0 &amp;&amp; Y == 0) return work0(); if(X == 0 || Y == 0) return work1(); init(); Per = MxP = P * P - 1; FOR(i, 1, P) if(MxP % i == 0)&#123; if(ksm(M, i).Unit()) chkmin(Per, i); if(ksm(M, MxP / i).Unit()) chkmin(Per, MxP / i); &#125; // SL = sqrt(Per); MM = ksm(M, SL); &#123; Vector v = ksm(M, SL - 1) * S; for(int i = SL, ed_i = Per + SL; i &lt; ed_i; i += SL)&#123; int &amp;tmp = rem[Hash(v)]; if(!tmp) tmp = i; v = MM * v; &#125; v.a[0] = C; v.a[2] = 1; FOR(i, 0, P - 1)&#123; v.a[1] = i; int t = Find(v); if(t) W.emplace_back(t); &#125; sort(W.begin(), W.end()); &#125; i64 L, R; const int t = W.size(); function&lt;i64(i64)&gt; Qry = [t](const i64 &amp;Lim)&#123; return t * (Lim / Per) + upper_bound(W.begin(), W.end(), Lim % Per) - W.begin() - 1; &#125;; while(Q--)&#123; L = read64(), R = read64(); printf("%lld\n", Qry(R) - Qry(L - 1)); &#125;&#125;int main() &#123; IE.a[0][0] = 1; IE.a[1][1] = 1; IE.a[2][2] = 1; int T = read(); while(T--) work(); return 0;&#125; 然后喜提最速解（]]></content>
+    <content type="text"><![CDATA[题意简述CodeChef LUCKYDAY 有序列 $S$，其中 $S_1=A,S_2=B;S_i=X\cdot S_{i-1}+Y\cdot S_{i-2}+Z(i&gt;2)\% P$。$Q$ 个询问求 $\sum\limits_{i=L}^{R}[S_i=C]$。$A,B,X,Y,C,P,Q$ 均给定，$P$ 为不超过 $10007$ 的质数，$0\le A,B,X,Y,C&lt;P$，$Q\le 2\times 10^4$，$1\le L\le R\le 10^{18}$。 主要思路先把 $X=0$ 或 $Y=0$ 等情况判了。此时循环节长度 $O(P)$，暴力找出即可。注意到此时可能循环节从 $3$ 开始。 设 $F_i=\begin{bmatrix}S_i\\S_{i+1}\\1\end{bmatrix},M=\begin{bmatrix}0&amp;1&amp;0\\Y&amp;X&amp;Z\\0&amp;0&amp;1\end{bmatrix}$，则有 $F_i = M\times F_{i-1}$。 不同的 $F_i$ 仅有 $P^2$ 个，由HDU 5451的经验，循环节一定是 $P^2-1$ 的约数，并且 $X&gt;0,Y&gt;0$ 时因为转移矩阵可逆，故一定是纯循环。 那么就先来找最小循环节 $R$。枚举约数矩阵快速幂即可。 然后考虑如何找到循环节中所有 $S_i=C$。由于循环节内相同 $F_i$ 只会出现一次，我们试图枚举 $m$，找到所有 $t=\begin{bmatrix}C\\m\\1\end{bmatrix}$ 的位置。即，找到 $0\le k&lt;R$ 使 $M^k F_1=t$ 成立。 设一阈值 $L$，则 $M^{dL-e}F_1=t$。由于 $M$ 可逆，变成 $M^{dL}F_1=M^et$，且 $d$ 是 $O({R\over L})$ 级别，$e$ 是 $O(L)$ 级别。 不难想到可以 $O({R\over L})$ 预处理出所有左边的可能值，扔到 Hash Table 里，就支持 $O(1)$ 查询。那么每次查询时，枚举 $e$，即可做到 $O(L)$ 单次查询。喂这不就是 BSGS…… 由于有 $O(P)$ 次查询（枚举 $m$），所以时间复杂度是 $O(LP)+O({R\over L})$，由于 $R$ 是 $O(P^2)$ 级别，故 $L$ 取 $\sqrt{P}$ 时复杂度最优为 $O(P\sqrt{P})$。 之后，每个询问就 $O(\log P)$ 了。 总时间复杂度 $O(P\sqrt{P} + Q\log P)$。 参考代码代码真的很烦，我的 Hash Table 都是抄 Sunli Chen 的。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;#define Templ(T) template &lt;typename T&gt;inline int read() &#123; int x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;inline i64 read64() &#123; i64 x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); for (; isdigit(c); c = getchar()) x = x * 10 + c - '0'; return x;&#125;Templ(_Tp) inline int chkmin(_Tp &amp;x, _Tp y) &#123; return x &gt; y ? x = y, 1 : 0; &#125;Templ(_Tp) inline int chkmax(_Tp &amp;x, _Tp y) &#123; return x &lt; y ? x = y, 1 : 0; &#125;int __MOD__;#define P __MOD__inline void inc(int &amp;x, const int &amp;y) &#123; x += y; if (x &gt;= P) x -= P;&#125;inline void dec(int &amp;x, const int &amp;y) &#123; x -= y; if(x &lt; 0) x += P;&#125;inline int ksm(int x, i64 y) &#123; int res = 1; for (; y; y &gt;&gt;= 1, x = (i64)x * x % P) if (y &amp; 1) res = (i64)res * x % P; return res;&#125;/*[ S(i) ] [0 1 0] [S(i-1)][S(i+1)] = [Y X Z] * [ S(i) ][ 1 ] [0 0 1] [ 1 ]*/#define MR 160#define SL 150// Thanks Eric Sunli Chen for his AMAZING hash table!#define Hash_P 2333333#define Hash_N 888888struct Hash_T &#123; int head[Hash_P], nxt[Hash_N], a[Hash_N], val[Hash_N], tot; void Clear() &#123; memset(head, 0, sizeof(head)); tot = 0; &#125; Hash_T() &#123; Clear(); &#125; inline int &amp;operator[](const int &amp;x) &#123; int tx = x % Hash_P; for (int i = head[tx]; i; i = nxt[i]) if (val[i] == x) return a[i]; nxt[++tot] = head[tx]; head[tx] = tot; val[tot] = x; a[tot] = 0; return a[tot]; &#125; inline int Find(const int &amp;x) const &#123; int tx = x % Hash_P; for (int i = head[tx]; i; i = nxt[i]) if (val[i] == x) return a[i]; return -1; &#125;&#125;;Hash_T rem;struct Matrix&#123; int a[3][3]; inline Matrix()&#123; memset(a, 0, 36); &#125; inline bool Unit()&#123; FOR(i, 0, 2) FOR(j, 0, 2) if(a[i][j] != (i == j)) return false; return true; &#125; inline Matrix operator *(const Matrix &amp;y)const&#123; Matrix z; FOR(i, 0, 2) FOR(k, 0, 2) FOR(j, 0, 2) (z.a[i][j] += a[i][k] * y.a[k][j]) %= P; return z; &#125;&#125;IE;struct Vector&#123; int a[3]; inline Vector()&#123; memset(a, 0, 12); &#125; friend inline Vector operator *(const Matrix &amp;x, const Vector &amp;y)&#123; Vector z; z.a[0] = (x.a[0][0] * y.a[0] + x.a[0][1] * y.a[1] + x.a[0][2] * y.a[2]) % P; z.a[1] = (x.a[1][0] * y.a[0] + x.a[1][1] * y.a[1] + x.a[1][2] * y.a[2]) % P; z.a[2] = 1; return z; &#125;&#125;;inline Matrix ksm(Matrix x, int y)&#123; Matrix z = IE; for(; y; y &gt;&gt;= 1, x = x * x) if(y &amp; 1) z = z * x; return z;&#125;inline int Hash(const Vector &amp;x)&#123; return x.a[0] * P + x.a[1];&#125;Matrix M, MM;Vector S;int A, B, X, Y, Z, C, Q;int Per, MxP;// int SL;vector&lt;int&gt; W;inline void work0()&#123; i64 L, R, res; while(Q--)&#123; L = read64(), R = read64(); res = 0; if(L == 1) res += R &gt;= 1 &amp;&amp; A == C, ++L; if(L == 2) res += R &gt;= 2 &amp;&amp; B == C, ++L; if(Z == C &amp;&amp; L &lt;= R) res += R - L + 1; printf("%lld\n", res); &#125;&#125;inline void work1()&#123; int *F = (int*)malloc(sizeof(int) * 5 * P), Per = 0; F[1] = A, F[2] = B; FOR(i, 3, 4 * P)&#123; F[i] = ((i64)F[i - 1] * X + (i64)F[i - 2] * Y + Z) % P; &#125; FOR(i, 5, 4 * P)&#123; if(F[i - 1] == F[3] &amp;&amp; F[i] == F[4])&#123; Per = i - 4; break; &#125; &#125; *F = 0; FOR(i, 1, Per) F[i] = F[i - 1] + (F[i + 2] == C); function&lt;i64(i64)&gt; Qry = [F, Per](i64 Lim)&#123; i64 res = 0; if(Lim &gt;= 1) res += A == C, --Lim; if(Lim &gt;= 1) res += B == C, --Lim; if(Lim &lt;= 0) return res; return res + F[Per] * (Lim / Per) + F[Lim % Per]; &#125;; i64 L, R; while(Q--)&#123; L = read64(), R = read64(); printf("%lld\n", Qry(R) - Qry(L - 1)); &#125; free(F);&#125;inline void init()&#123; M.a[0][1] = 1; M.a[1][0] = Y; M.a[1][1] = X; M.a[1][2] = Z; M.a[2][2] = 1; S.a[0] = A; S.a[1] = B; S.a[2] = 1; W.clear(); rem.Clear();&#125;inline int Find(Vector v)&#123; FOR(i, 0, SL - 1)&#123; int t = rem.Find(Hash(v)); if(t != -1 &amp;&amp; t - i &lt;= Per) return t - i; v = M * v; &#125; return 0;&#125;void work()&#123; A = read(), B = read(); X = read(), Y = read(), Z = read(); P = read(), C = read(), Q = read(); if(X == 0 &amp;&amp; Y == 0) return work0(); if(X == 0 || Y == 0) return work1(); init(); Per = MxP = P * P - 1; FOR(i, 1, P) if(MxP % i == 0)&#123; if(ksm(M, i).Unit()) chkmin(Per, i); if(ksm(M, MxP / i).Unit()) chkmin(Per, MxP / i); &#125; // SL = sqrt(Per); MM = ksm(M, SL); &#123; Vector v = ksm(M, SL - 1) * S; for(int i = SL, ed_i = Per + SL; i &lt; ed_i; i += SL)&#123; int &amp;tmp = rem[Hash(v)]; if(!tmp) tmp = i; v = MM * v; &#125; v.a[0] = C; v.a[2] = 1; FOR(i, 0, P - 1)&#123; v.a[1] = i; int t = Find(v); if(t) W.emplace_back(t); &#125; sort(W.begin(), W.end()); &#125; i64 L, R; const int t = W.size(); function&lt;i64(i64)&gt; Qry = [t](const i64 &amp;Lim)&#123; return t * (Lim / Per) + upper_bound(W.begin(), W.end(), Lim % Per) - W.begin() - 1; &#125;; while(Q--)&#123; L = read64(), R = read64(); printf("%lld\n", Qry(R) - Qry(L - 1)); &#125;&#125;int main() &#123; IE.a[0][0] = 1; IE.a[1][1] = 1; IE.a[2][2] = 1; int T = read(); while(T--) work(); return 0;&#125; 然后喜提最速解（]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -82,8 +94,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>猜结论</tag>
+        <tag>Codeforces</tag>
         <tag>数学</tag>
       </tags>
   </entry>
@@ -106,8 +118,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
@@ -224,8 +236,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>猜结论</tag>
+        <tag>构造</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
@@ -249,8 +261,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -613,8 +625,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -638,9 +650,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -899,8 +911,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -949,8 +961,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -961,8 +973,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>AtCoder</tag>
         <tag>数学</tag>
+        <tag>AtCoder</tag>
         <tag>计算几何</tag>
       </tags>
   </entry>
@@ -1180,8 +1192,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1226,8 +1238,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -1295,9 +1307,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1308,8 +1320,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>Codeforces</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>

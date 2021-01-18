@@ -739,7 +739,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/CC-LUCKYDAY/">
+    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/GYM102798F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Okazaki Yumemi">
@@ -759,7 +759,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/blog/CC-LUCKYDAY/" class="post-title-link" itemprop="http://okazakiyumemi.github.io/index.html">「CodeChef LUCKYDAY」Lucky Days</a>
+                <a href="/blog/GYM102798F/" class="post-title-link" itemprop="http://okazakiyumemi.github.io/index.html">「GYM102798F」Skeleton Dynamization</a>
               
             
           </h1>
@@ -784,7 +784,7 @@
                 
               
 
-              <time title="创建时间：2021-01-14 21:09:43 / 修改时间：22:15:57" itemprop="dateCreated datePublished" datetime="2021-01-14T21:09:43+08:00">2021-01-14</time>
+              <time title="创建时间：2021-01-18 16:27:25 / 修改时间：16:37:00" itemprop="dateCreated datePublished" datetime="2021-01-18T16:27:25+08:00">2021-01-18</time>
             
 
             
@@ -841,7 +841,196 @@
 
       
         
-          <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>有序列 $S$，其中 $S_1=A,S_2=B;S_i=X\cdot S_{i-1}+Y\cdot S_{i-2}+Z(i&gt;2)\% P$。<br>$Q$ 个询问求 $\sum\limits_{i=L}^{R}[S_i=C]$。<br>$A,B,X,Y,C,P,Q$ 均给定，$P$ 为不超过 $10007$ 的质数，$0\le A,B,X,Y,C&lt;P$，$Q\le 2\times 10^4$，$1\le L\le R\le 10^{18}$。</p>
+          <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p><a href="https://codeforces.com/gym/101741/problem/H" target="_blank" rel="noopener">GYM101741H</a></p>
+<p>想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。</p>
+<p>这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。</p>
+<p>spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以用 $(f, j)$ 唯一表示，前者为其出现的帧，后者为其在 $G$ 中对应的标号。</p>
+<p>两点 $(f_1, j_1), (f_2, j_2)$ 间有边，仅当满足以下条件之一：</p>
+<ul>
+<li>$j_1 = j_2, f_1 + 1 = f_2$；</li>
+<li>$f_1 = f_2$，且在 $G$ 中有边 $(j_1, j_2)$。</li>
+</ul>
+<p>现在 $G$ 丢失了，只剩下了标号被打乱的 spatial-temporal graph。请还原可能的 $F, J$ 并构造方案。<br>如有多个方案，请最大化 $F$。</p>
+<p>$n\le 10^5, m\le 2\times 10^5$。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/blog/GYM102798F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/CC-LUCKYDAY/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Okazaki Yumemi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Okazaki Yumemi's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/CC-LUCKYDAY/" class="post-title-link" itemprop="http://okazakiyumemi.github.io/index.html">「CodeChef LUCKYDAY」Lucky Days</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-14 21:09:43" itemprop="dateCreated datePublished" datetime="2021-01-14T21:09:43+08:00">2021-01-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-01-18 16:33:27" itemprop="dateModified" datetime="2021-01-18T16:33:27+08:00">2021-01-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p><a href="https://www.codechef.com/problems/LUCKYDAY" target="_blank" rel="noopener">CodeChef LUCKYDAY</a></p>
+<p>有序列 $S$，其中 $S_1=A,S_2=B;S_i=X\cdot S_{i-1}+Y\cdot S_{i-2}+Z(i&gt;2)\% P$。<br>$Q$ 个询问求 $\sum\limits_{i=L}^{R}[S_i=C]$。<br>$A,B,X,Y,C,P,Q$ 均给定，$P$ 为不超过 $10007$ 的质数，$0\le A,B,X,Y,C&lt;P$，$Q\le 2\times 10^4$，$1\le L\le R\le 10^{18}$。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1176,7 +1365,7 @@
       
         
           <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p>给出下列代码：</p>
-<!--�96-->
+<!--�95-->
 
 <p>有 $Q$ 个询问，每个询问两个整数 $x, y$，求 $G(x, y), W(x, y)$。$Q\le 3\times 10^5, x, y\le 10^{18}$。</p>
           <!--noindex-->
@@ -1910,172 +2099,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/waifu-2x-初探/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Okazaki Yumemi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Okazaki Yumemi's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/waifu-2x-初探/" class="post-title-link" itemprop="http://okazakiyumemi.github.io/index.html">waifu-2x 初探</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-11-17 21:53:34 / 修改时间：22:22:28" itemprop="dateCreated datePublished" datetime="2020-11-17T21:53:34+08:00">2020-11-17</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://github.com/nagadomi/waifu2x" target="_blank" rel="noopener">waifu2x</a> 是一个用于 ACGN 风格图像的图像缩放和图像降噪程序，也支持处理普通照片。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/blog/waifu-2x-初探/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2125,7 +2148,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-count">120</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

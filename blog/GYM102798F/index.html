@@ -110,21 +110,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://okazakiyumemi.github.io/categories/index.html">
+  <meta name="description" content="题意简述GYM101741H 想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。 这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。 spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以">
+<meta name="keywords" content="图论,GYM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「GYM102798F」Skeleton Dynamization">
+<meta property="og:url" content="http://okazakiyumemi.github.io/blog/GYM102798F/index.html">
 <meta property="og:site_name" content="Okazaki Yumemi&#39;s blog">
+<meta property="og:description" content="题意简述GYM101741H 想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。 这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。 spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-07T09:32:48.740Z">
+<meta property="og:updated_time" content="2021-01-18T08:37:00.249Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="「GYM102798F」Skeleton Dynamization">
+<meta name="twitter:description" content="题意简述GYM101741H 想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。 这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。 spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以">
 
 
 
 
 
 
-  <link rel="canonical" href="http://okazakiyumemi.github.io/categories/">
+  <link rel="canonical" href="http://okazakiyumemi.github.io/blog/GYM102798F/">
 
 
 
@@ -134,7 +138,7 @@
   };
 </script>
 
-  <title>分类 | Okazaki Yumemi's blog</title>
+  <title>「GYM102798F」Skeleton Dynamization | Okazaki Yumemi's blog</title>
   
 
 
@@ -275,7 +279,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -363,100 +367,216 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://okazakiyumemi.github.io/blog/GYM102798F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Okazaki Yumemi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Okazaki Yumemi's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">分类</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                目前共计 5 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/题解/">题解</a><span class="category-list-count">83</span></li></ul>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">「GYM102798F」Skeleton Dynamization
+              
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-18 16:27:25 / 修改时间：16:37:00" itemprop="dateCreated datePublished" datetime="2021-01-18T16:27:25+08:00">2021-01-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="题意简述"><a href="#题意简述" class="headerlink" title="题意简述"></a>题意简述</h2><p><a href="https://codeforces.com/gym/101741/problem/H" target="_blank" rel="noopener">GYM101741H</a></p>
+<p>想象一只 skeleton，抽象其骨头为无向边，关节为顶点，可以得到一个无向连通图。假设定点数为 $J$，该图为 $G$。</p>
+<p>这只 skeleton 开始动了起来，我们记录了其在连续 $F$ 帧中的动作，并且建立了一张 spatial-temporal graph。</p>
+<p>spatial-temporal graph 是一个有 $F\times J$ 个节点的图。每个节点可以用 $(f, j)$ 唯一表示，前者为其出现的帧，后者为其在 $G$ 中对应的标号。</p>
+<p>两点 $(f_1, j_1), (f_2, j_2)$ 间有边，仅当满足以下条件之一：</p>
+<ul>
+<li>$j_1 = j_2, f_1 + 1 = f_2$；</li>
+<li>$f_1 = f_2$，且在 $G$ 中有边 $(j_1, j_2)$。</li>
+</ul>
+<p>现在 $G$ 丢失了，只剩下了标号被打乱的 spatial-temporal graph。请还原可能的 $F, J$ 并构造方案。<br>如有多个方案，请最大化 $F$。</p>
+<p>$n\le 10^5, m\le 2\times 10^5$。</p>
+<a id="more"></a>
+
+<h2 id="主要思路"><a href="#主要思路" class="headerlink" title="主要思路"></a>主要思路</h2><p><del>上面讲了那么多废话，其实题意就是将给定的图看作分层图，每层内部边相同，相邻层只有对应点连边，最大化层数。</del></p>
+<p>设度数最小的点为 $s$，显然其（在某个最优方案）一定是第一层的点。显然，$s$ 的度数不超过 $O(\sqrt{m})$。</p>
+<p>枚举 $s$ 在第二层对应的点 $t$。<br>从 $s,t$ 开始 bfs，则以 $s$ 为起点 bfs 到的点即为第一层的点。</p>
+<p>已知第一层的点，就可以确定第二层的点，然后确定所有层的点。</p>
+<p>如果过程中出现矛盾，则退出。</p>
+<p>最后，检查每一层内部的边是否都相同。</p>
+<p>时间复杂度 $O(m\sqrt{m})$。</p>
+<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><div><div class="fold_hider"><div class="close hider_title"> </div></div><div class="fold">
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt; ed_##i; ++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt; ed_##i; --i)</span></span><br><span class="line"><span class="comment">// Note the unusual definition</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> i64;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; VI;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb emplace_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> X first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Y second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(x) ((int)(x).size())</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Templ(T) template <span class="meta-string">&lt;typename T&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) c = getchar();</span><br><span class="line">    <span class="keyword">for</span> (; <span class="built_in">isdigit</span>(c); c = getchar())</span><br><span class="line">        x = x * <span class="number">10</span> + c - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line">Templ(_Tp) <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">chkmin</span><span class="params">(_Tp &amp;x, _Tp y)</span> </span>&#123; <span class="keyword">return</span> x &gt; y ? x = y, <span class="number">1</span> : <span class="number">0</span>; &#125;</span><br><span class="line">Templ(_Tp) <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">chkmax</span><span class="params">(_Tp &amp;x, _Tp y)</span> </span>&#123; <span class="keyword">return</span> x &lt; y ? x = y, <span class="number">1</span> : <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100010</span></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">int</span> F, J;<span class="comment">// Frames, Joints</span></span><br><span class="line"><span class="keyword">int</span> ans[N];</span><br><span class="line"><span class="keyword">int</span> S;</span><br><span class="line">VI E[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> B[N], Q[N], w[N], res[N];</span><br><span class="line">    <span class="keyword">static</span> VI e[N];</span><br><span class="line">    <span class="built_in">memset</span>(B, <span class="number">-1</span>, n &lt;&lt; <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">memset</span>(w, <span class="number">-1</span>, n &lt;&lt; <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">memset</span>(res, <span class="number">-1</span>, n &lt;&lt; <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    int *ql(Q), *qr(Q);</span><br><span class="line">    B[S] = <span class="number">0</span>, B[T] = <span class="number">1</span>;</span><br><span class="line">    *qr++ = S, *qr++ = T;</span><br><span class="line">    <span class="keyword">while</span>(ql != qr)&#123;</span><br><span class="line">        <span class="keyword">int</span> u = *ql++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v: E[u]) <span class="keyword">if</span>(B[v] == <span class="number">-1</span>)&#123;</span><br><span class="line">            B[v] = B[u];</span><br><span class="line">            *qr++ = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int j(0), f, t(0);</span><br><span class="line">    <span class="comment">// (now) joints, frames</span></span><br><span class="line">    FOR(i, <span class="number">0</span>, n) <span class="keyword">if</span>(B[i] == <span class="number">0</span>)&#123;</span><br><span class="line">        res[j] = i;</span><br><span class="line">        w[i] = j++;</span><br><span class="line">        t += SZ(E[i]);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span>(n % j != <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    f = n / j;</span><br><span class="line">    <span class="keyword">if</span>(f &lt; F) <span class="keyword">return</span>;</span><br><span class="line">    t -= j;</span><br><span class="line">    <span class="keyword">if</span>(t &amp; <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    t &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(f * t + (f - <span class="number">1</span>) * j != m) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    FOR(o, <span class="number">1</span>, f)&#123;</span><br><span class="line">        <span class="keyword">int</span> c = <span class="number">0</span>, *a = res + (o - <span class="number">1</span>) * j;</span><br><span class="line">        FOR(i, <span class="number">0</span>, j)&#123;</span><br><span class="line">            <span class="keyword">int</span> u = a[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> v: E[u]) <span class="keyword">if</span>(w[v] == <span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i + j] != <span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">                w[v] = w[u] + j;</span><br><span class="line">                a[i + j] = v;</span><br><span class="line">                ++c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c != j) <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    FOR(i, <span class="number">0</span>, n) e[i].resize(<span class="number">0</span>);</span><br><span class="line">    FOR(o, <span class="number">0</span>, f)&#123;</span><br><span class="line">        <span class="keyword">int</span> *a = res + o * j;</span><br><span class="line">        FOR(i, <span class="number">0</span>, j)&#123;</span><br><span class="line">            <span class="keyword">int</span> u = a[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> v: E[u]) <span class="keyword">if</span>(w[v] / j == w[u] / j) e[w[v]].pb(w[u] % j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FOR(i, j, n) <span class="keyword">if</span>(e[i] != e[i - j]) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    J = j;</span><br><span class="line">    F = f;</span><br><span class="line">    <span class="built_in">memcpy</span>(ans, res, n &lt;&lt; <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    n = read(), m = read();</span><br><span class="line">    FOR(i, <span class="number">0</span>, m)&#123;</span><br><span class="line">        int u(read() - 1), v(read() - 1);</span><br><span class="line">        E[u].pb(v), E[v].pb(u);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mn = m;</span><br><span class="line">        FOR(i, <span class="number">0</span>, n) <span class="keyword">if</span>(chkmin(mn, SZ(E[i]))) S = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    F = <span class="number">1</span>, J = n;</span><br><span class="line">    FOR(i, <span class="number">0</span>, n) ans[i] = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i: E[S]) work(i);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, F, J);</span><br><span class="line">    FOR(i, <span class="number">0</span>, n) <span class="built_in">printf</span>(<span class="string">"%d%c"</span>, ans[i] + <span class="number">1</span>, <span class="string">" \n"</span>[i % J == J - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div></div>
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+            <a href="/tags/GYM/" rel="tag"># GYM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/CC-LUCKYDAY/" rel="next" title="「CodeChef LUCKYDAY」Lucky Days">
+                <i class="fa fa-chevron-left"></i> 「CodeChef LUCKYDAY」Lucky Days
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -490,8 +610,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -905,6 +1034,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意简述"><span class="nav-number">1.</span> <span class="nav-text">题意简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思路"><span class="nav-number">2.</span> <span class="nav-text">主要思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考代码"><span class="nav-number">3.</span> <span class="nav-text">参考代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
