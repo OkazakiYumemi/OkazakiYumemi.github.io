@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[又一个弥生月，近况报告]]></title>
+    <url>%2Fblog%2F20210226%2F</url>
+    <content type="text"><![CDATA[已逝世]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>计划与总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2021WC 听课记录]]></title>
+    <url>%2Fblog%2F2021WC-notes%2F</url>
+    <content type="text"><![CDATA[总结：自闭了。 0201上午在讲简单东西，跳了。 下午的一些题目： GYM102832J(from 2020 China Collegiate Programming Contest Changchun Onsite) 注意到方案合法仅当 $[x-r,x+r]$ 这些区间互相之间只有严格包含和相离关系，且没有完全相同的线段。考虑从左到右维护扫描线，记录前 $10$ 个端点哪一些是合法的。插入一条 $[x, y]$ 的线段会使得 $[x + 1, y − 1]$ 非法，打标记即可。时间复杂度 $O(n\times 2^{10})$。 GYM102822I(from 2020 China Collegiate Programming Contest Mianyang Onsite) 这题见过。 $n$ 棵树高度为 $\langle h\rangle$，可以任意买可使一棵树长高 $i$、单价 $i^2+C$ （$C$ 为常数）的肥料，求每棵树都长到不低于 $k$ 的最小花费。$n,q\le 10^5,c\le 10^4,h_i,k\le 10^9$ 且 $h,k$ 随机生成。 考虑若我们要将某棵树高度提升 $h$。假设我们操作了 $k$ 次，显然会有 $h \bmod k$ 次 $\lfloor\frac{h}{k}\rfloor$ 和 $k-h\bmod k$ 次 $\lfloor\frac{h}{k}\rfloor$。 所以直接令 $f(h)$ 为升高 $h$ 最优（且最大）的操作次数，不难发现 $h&gt;O(C)$ 时有约为 $O(\sqrt{C})$ 的周期，所以小暴力，大按剩余类做扫描线即可。而又因为数据随机，问到小的概率很小，所以复杂度没问题。 GYM102798F(from 2020 China Collegiate Programming Contest Weihai Onsite) GYM102769L(from 2020 China Collegiate Programming Contest Qinhuangdao Onsite) 虽然我知道这是什么但是不会描述所以直接抄课件了（ 平面上有 $n$ 组石柱，第 $i$ 组包含了坐标为 $(i,l_i),(i,r_i)$ 的石柱，除此之外没有石柱。每一年，如果一个石柱旁边四格中存在一个空格子，则在当年结束时，其会崩塌，形成一个空格子。问每一组石柱哪一年会全部崩塌。$\sum n\le 1.2\times 10^7,1\le l_i,r_i\le 5\times 10^8$。 考虑一个石柱 $(x,y)$ 与一个空格子 $(x’,y’)$，则该石柱显然会在 $|x-x’|+|y-y’|$ 年内崩塌。于是设第 $i$ 组的答案为 $ans_i$，则显然有 $ans_i−1\le ans_i+1\le ans_i+1$。因而 $i−ans_i,i+ans_i$, 也就是极大合法的左右端点均单调增。 不妨设 $(i,l_i−1),(i,r_i+1)$ 为上下关键点，考虑用单调栈分别维护左右侧的上下关键点的四个单调队列。队列维护的是 $x,y$ 两轴的坐标的和差，用于计算当前石柱没有崩塌的区间的上下边界。 我们同时维护队列左右两侧 $4$ 个方向的单调队列，同时记录当前极大合法区间左右端点 $L,R$。从 $i−1$ 转移到 $i$ 的时候，右端点最多向右移动 $2$，因而这些零散的部分可以通过暴力询问求得。 每一次中点的移动，合法区间左右端点的移动，相当于从若干个队列中删去起始元素，加入末尾元素。检验合法性等价于求最小值，因而直接维护 $4$ 个单调队列即可。时间复杂度 O(n)。 NC9925H(from 2020 ICPC,Shanghai Regional Contest) 这题见过。 一个圆形餐桌，有 $n$ 个位置，现有 $k$ 个人分别在 $a_i$，$k$ 碗饭分别在 $b_i$。每个时刻你可以顺时针或逆时针将桌子转一个位置，如果一碗饭转到了一个人面前，他可以不花时间取走饭，每个人恰好会取走一碗饭。大家都想最小化最后拿到饭的人的时间，求出这个时间。$n\le 10^9,k\le 2000$。 有一个结论是：我们把每个人和对应的饭在圆盘上连线，那么这些连线是不会相交的。这样我们可以直接枚举第一个人对应的饭编号，然后转一圈计算答案。复杂度 $O(n^2\log n)$。 证明略。 NC9925K(from 2020 ICPC,Shanghai Regional Contest) 这题见过。 $n$ 个点 $m$ 条边无向简单图，每个点有颜色0/1，保证点 $1$ 初始颜色为0。每当你离开一个点，该点颜色会改变。你希望经过节点颜色依次为010101...，判断是否存在这样的路径，$n,m\le 2\times 10^5$。 考虑第一个在路径中出现两次的点 $x$，和第二次 $x$ 出现前上一个点 $y$，显然初始 $x,y$ 同色，而路径 $1\to x\to y$ 每条边均为异色边。 把异色边提出来，求出点双，求出圆方树 $T$，则存在 $1\to x\to y$ 的不经过重复节点的路径仅当「$y$ 在 $x$ 子树内」或「$x$ 父节点为方点，且 $y$ 在 $x$ 父亲的子树内」。 总时间复杂度 $O(n)$。 NC9328H(from 2020 XiaoMi Invitational Programming contest) 见过不会。 给定一个 $n$ 层的满二叉树，所有叶子节点有固定权值 $v_i$。自行确定其他节点的权值最小化 $\sum(v_i-v_{fa(i)})^2$ 并输出最小值 $\bmod 998244353$。$Q$ 次单点修改，$n\le 18,Q\le 2\times 10^5$。 设 $f_x(t)$ 为 $v_x=t$、其子树内节点权值任意，其子树贡献最小值。不难发现 $f_x(t)$ 为一个二次函数。 因此直接对于树上每个节点维护多项式对应系数即可。注意到二次项系数仅与树结构相关，因此可省去修改时求逆部分。时间复杂度 $O((n+m)(\log n + \log mod))$。 020202030204显而易见，咕了。]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>GYM</tag>
+        <tag>NowCoder</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[「CF1442F」Differentiating Games]]></title>
     <url>%2Fblog%2FCF1442F%2F</url>
     <content type="text"><![CDATA[题意简述CF 1442F 给一个 $n$ 个点 $m$ 条边的 DAG，你可以进行至多 $4242$ 次修改操作，每次删掉一条边或加上一条边（修改之后允许有环、重边、自环）。 在这个图上定义函数 $f(S)$ ，表示如果在多重集合 $S$ 的每一个元素上放一个球，两人轮流操作，每次把一个球向某一条出边移动，不能操作者输，那么是先手是胜还是输，或者永远玩不完（平）。（双方的策略均为先尽量赢，再尽量平。） 接下来 $T$ 组数据，每组数据中交互器确定一个特殊点 $x$ ，你要通过询问来找到这个特殊点。 一次询问可以问大小不超过 $20$ 的多重集合 $S$ ，返回 $f(S+{x})$ 的值。最多问 $20$ 次，集合大小的总和不能超过 $20$ 。 $n\le 1000,m\le 10^5,T\le 2000$ 主要思路假设图无环，则没有平局情况，故两点的SG值必须两两不同，图这必须是一个完全 DAG。 那么，一个显然的想法是给除了那个完全 DAG 里的点都加上一个自环。称 DAG 里的点是 A 类点，有自环的点是 B 类点。 不难发现，如果至少 2 个球在 B 类点上，一定是Draw；有 1 个球在 B 类点上，不可能Lose，因为其可以什么都不做。于是现在考虑仅有 1 个球在 B 类点上的情况，考虑先手什么时候会将球移出去。 显然，先手不会将球移到另一个 B 类点上，因为此时不可能Win。故先手仅可能将球移到一个 A 类点上。 不妨假设我们每次仅询问大小为 1 的集合，即，将 A 类点都询问一遍。A 类点的SG值都不相同，所以如果出现了Lose，仅可能是询问点和答案相同。 否则，只会有一堆Win和Draw。类似地，Win的情况为答案有连向询问点的出边。所以只需保证每个 B 类点对 A 类边连边的集合不同即可。 于是钦定 A 类点不超过 $20$ 个，直接冲即可。 最后大概会修改 $3900$ 条边。 参考代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136#include &lt;bits/stdc++.h&gt;using namespace std;#define FOR(i, a, b) for (int i = (a), ed_##i = (b); i &lt;= ed_##i; ++i)#define ROF(i, a, b) for (int i = (a), ed_##i = (b); i &gt;= ed_##i; --i)typedef long long i64;typedef vector&lt;int&gt; VI;#define pb emplace_back#define N 1024#define M 25#define BB 20vector&lt;tuple&lt;char, int, int&gt;&gt; ans;int n, m, esac, B;VI E[N];int ind[N], que[N];int id[N], rd[M];int tb[1048599], val[N];inline void AddEdge(int u, int v)&#123; ans.pb('+', u, v); &#125;inline void DelEdge(int u, int v)&#123; ans.pb('-', u, v); &#125;inline int Query(int u)&#123; printf("? 1 %d\n", u), fflush(stdout); static char s[10]; scanf("%s", s); return *s == 'L' ? -1 : (*s == 'W' ? 1 : 0);&#125;inline void Report(int u)&#123; printf("! %d\n", u), fflush(stdout); static char s[10]; scanf("%s", s); assert(*s == 'C');&#125;inline void Init1()&#123; scanf("%d%d%d", &amp;n, &amp;m, &amp;esac); FOR(i, 1, m)&#123; int u, v; scanf("%d%d", &amp;u, &amp;v); E[u].pb(v), ++ind[v]; &#125; // B = min(n, BB); if(n &lt;= BB) B = n; else&#123; B = 1; FOR(i, 1, BB - 1) if(i+(i*(i-1))/2+(i*(i-1)*(i-2)/6)&lt;=n) ++B; &#125;&#125;inline void Init2()&#123; int *ql(que), *qr(que); FOR(i, 1, n) if(!ind[i]) *qr++ = i; while(ql != qr)&#123; int u = *ql++; for(int v: E[u])&#123; if(!(--ind[v])) *qr++ = v; &#125; &#125;&#125;inline void Init3()&#123; static int e[M][M]; memset(id, -1, sizeof(int) * N); FOR(i, 1, B)&#123; id[que[n - i]] = i - 1; rd[i - 1] = que[n - i]; &#125; // FOR(i, 0, n - 1) printf("%d%c", que[i], " \n"[i == ed_i]); // FOR(i, 0, B - 1) printf("%d%c", rd[i], " \n"[i == ed_i]); FOR(i, 0, B - 1)&#123; int u = rd[i]; for(int v: E[u]) if(id[v] != -1)&#123; assert(id[v] &lt; i); e[i][id[v]] = 1; &#125; FOR(j, 0, i - 1) if(!e[i][j])&#123; AddEdge(rd[i], rd[j]); &#125; &#125; FOR(i, 1, n) if(id[i] == -1) AddEdge(i, i);&#125;inline void Init4()&#123; VI s[3]; FOR(i, 1, (1 &lt;&lt; B) - 1)&#123; int t = __builtin_popcount(i); if(t &lt;= 3) s[t - 1].pb(i); &#125; FOR(i, 1, n) if(id[i] == -1)&#123; for(int v: E[i]) if(id[v] != -1)&#123; val[i] |= 1 &lt;&lt; id[v]; &#125; if(!tb[val[i]]) tb[val[i]] = i; &#125; // FOR(i, 1, n) printf("%d%c", val[i], " \n"[i == ed_i]); // FOR(i, 0, (1 &lt;&lt; B) - 1) printf("%d%c", tb[i], " \n"[i == ed_i]); auto UpdNode = [s](int p) -&gt; void&#123; FOR(o, 0, 2) for(int j: s[o]) if(!tb[val[p] ^ j])&#123; ROF(i, B - 1, 0) if((j &gt;&gt; i) &amp; 1)&#123; (((val[p] &gt;&gt; i) &amp; 1) ? DelEdge : AddEdge)(p, rd[i]); &#125; tb[val[p] ^= j] = p; return; &#125; &#125;; FOR(i, 1, n) if(id[i] == -1 &amp;&amp; tb[val[i]] != i)&#123; UpdNode(i); &#125; printf("%d\n", (int)ans.size()); for(auto [x, y, z]: ans)&#123; printf("%c %d %d\n", x, y, z); &#125; fflush(stdout);&#125;inline void Work()&#123; int v = 0, t; FOR(i, 0, B - 1)&#123; t = Query(rd[i]); if(t == -1) return Report(rd[i]); if(t == 1) v |= 1 &lt;&lt; i; &#125; assert(tb[v] != 0); Report(tb[v]);&#125;int main() &#123; Init1(); Init2(); Init3(); Init4(); while(esac--) Work(); return 0;&#125;]]></content>
@@ -8,8 +31,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
         <tag>交互题</tag>
       </tags>
   </entry>
@@ -21,8 +44,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>构造</tag>
+        <tag>猜结论</tag>
         <tag>树论</tag>
         <tag>GYM</tag>
       </tags>
@@ -85,8 +108,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>找规律</tag>
         <tag>AtCoder</tag>
+        <tag>找规律</tag>
       </tags>
   </entry>
   <entry>
@@ -102,9 +125,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[ffmpeg 和 youtube-dl 小记]]></title>
-    <url>%2Fblog%2Fffmpeg-%E5%92%8C-youtube-dl-%E5%B0%8F%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[被 myy 送退役了，于是这个 blog 以后可能大部分都是这些内容了。 至于为啥把这两个明显格局不同的项目放在一起介绍？只是碰巧而已啦。 ffmpeg咕了。]]></content>
+    <title><![CDATA[ffmpeg 小记]]></title>
+    <url>%2Fblog%2Fffmpeg-%E5%B0%8F%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[被 myy 送退役了，于是这个 blog 以后可能大部分都是这些内容了。 安装首先安装。Linux 用户显然会自己搞。Windows 人得去下编译好的包，gyan.dev和BtbN不知道有什么区别。 然后ffmpeg --help就可以看到简短的帮助了。想看到完整的帮助可以ffmpeg -h full（长约 1MB 警告）。 简要介绍咕了。 使用例curl下载网课（分段.ts）并用ffmpeg合并我比较菜找不到.m3u8，然后恰好某网站的.ts又是顺序排列的，于是直接请求到返回404为止，再ffmpeg合并就好了。 颇具 oi 风格的码风，坏 12345678910111213141516171819#!/bin/bashS="https://example.com/"rm list.infor ((i=0;$i&lt;=9999;i+=1))do j=$((i+10000))"" j=$&#123;j:1:4&#125; # echo $j info=`curl -I $S$j.ts` code=`echo $info|grep "HTTP"|awk '&#123;print $2&#125;'` if [ "$code" == "200" ]; then curl -O $S$j.ts echo file \'$j.ts\' &gt;&gt; list.in fidoneffmpeg -f concat -i list.in demo.mp4]]></content>
       <categories>
         <category>技术</category>
       </categories>
@@ -133,8 +156,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>Codeforces</tag>
+        <tag>猜结论</tag>
         <tag>数学</tag>
       </tags>
   </entry>
@@ -157,8 +180,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
@@ -275,8 +298,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>构造</tag>
+        <tag>猜结论</tag>
         <tag>GYM</tag>
       </tags>
   </entry>
@@ -300,8 +323,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -512,8 +535,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>图论</tag>
         <tag>构造</tag>
+        <tag>图论</tag>
         <tag>AtCoder</tag>
       </tags>
   </entry>
@@ -664,8 +687,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -689,9 +712,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -950,8 +973,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -1000,8 +1023,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -1112,8 +1135,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>AtCoder</tag>
         <tag>字符串</tag>
+        <tag>AtCoder</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,8 +1148,8 @@
       </categories>
       <tags>
         <tag>猜结论</tag>
-        <tag>找规律</tag>
         <tag>AtCoder</tag>
+        <tag>找规律</tag>
       </tags>
   </entry>
   <entry>
@@ -1231,8 +1254,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1277,8 +1300,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1346,9 +1369,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
-        <tag>dp</tag>
         <tag>Codeforces</tag>
+        <tag>dp</tag>
+        <tag>猜结论</tag>
       </tags>
   </entry>
   <entry>
@@ -1359,8 +1382,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
         <tag>构造</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -1371,8 +1394,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>猜结论</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
