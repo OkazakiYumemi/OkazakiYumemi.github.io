@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[frp 初探]]></title>
     <url>%2Fblog%2Ffrp-server%2F</url>
-    <content type="text"><![CDATA[最近由于个人原因离校一段时间，但机房电脑数据太多懒得处理。遂花了半小时左右搭建了 frp 服务器。 准备工作frp 就是 fast reverse proxy。（目前笔者用到的）功能就是借助一台有公网 ip 的服务器作为中转，把内外网的流量连接起来。 Github - fatedier/frp 先买了台小鸡来充当公网主机（服务端）。 确保机房的设备，也就是内网主机（客户端）网络畅通。 测试了内网主机能够直连公网主机。 服务端搭建先自行下载解压 frp。 服务器端使用的是可执行文件是frps，配置文件是frps.ini。 最简单的配置就是这样。 123# frps.ini[common]bind_port = 7000 可以参考frps_full.ini，内附有注释。 客户端搭建咕。]]></content>
+    <content type="text"><![CDATA[最近由于个人原因离校一段时间，但机房电脑数据太多懒得处理。遂花了半小时左右搭建了 frp 服务器。 准备工作frp 就是 fast reverse proxy。（目前笔者用到的）功能就是借助一台有公网 ip 的服务器作为中转，把内外网的流量连接起来。 Github - fatedier/frp 先买了台小鸡来充当公网主机（服务端）。 确保机房的设备，也就是内网主机（客户端）网络畅通。 测试了内网主机能够直连公网主机。 服务端搭建先自行下载解压 frp。 12345mkdir -p /etc/frp/cd /etc/frp/wget "https://github.com/fatedier/frp/releases/download/vx.y.z/frp_x.y.z_linux_amd64.tar.gz"tar xzvf frp_x.y.z_linux_amd64.tar.gzmv frp_x.y.z_linux_amd64/* . 服务器端使用的是可执行文件是frps，配置文件是frps.ini。 最简单的配置就是这样。 123# frps.ini[common]bind_port = 7000 可以参考frps_full.ini，内附有注释。 目前我自己写的配置如下： 1234567[common]bind_port = 11450token = c9a4a645-dd52-44b6-9c63-551ef4412074authentication_timeout = 5000dashboard_port = 11451dashboard_user = admindashboard_pwd = c9a4a645-dd52-44b6-9c63-551ef4412074 bind_port 即用客户端连接到服务端的端口，需要保证其被服务端 firewall 放行。 dashboard 相关的几条，开启了一个 http://[server_addr]:11451 的 dashboard，可以查看客户端的连接状态。 开机启动作为把裤子都卖给 systemd 的壬，本人用 systemd 来启动 frps 服务。 v0.37.0 压缩包下附带一个 ./systemd/ 文件夹，内附有 frps.service。 但是实际上不太能直接用，得自己改改。 1234vim ./systemd/frps.servicecp ./systemd/frps.service /etc/systemd/system/killall frpssystemctl enable frps.service 客户端搭建]]></content>
       <categories>
         <category>技术</category>
       </categories>
@@ -242,8 +242,8 @@
       </categories>
       <tags>
         <tag>log数据结构</tag>
-        <tag>线段树</tag>
         <tag>CodeChef</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -459,8 +459,8 @@
       </categories>
       <tags>
         <tag>图论</tag>
-        <tag>2-SAT</tag>
         <tag>GYM</tag>
+        <tag>2-SAT</tag>
       </tags>
   </entry>
   <entry>
@@ -622,8 +622,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>图论</tag>
+        <tag>猜结论</tag>
         <tag>AtCoder</tag>
       </tags>
   </entry>
@@ -1014,8 +1014,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>dp</tag>
         <tag>图论</tag>
+        <tag>dp</tag>
       </tags>
   </entry>
   <entry>
@@ -1075,8 +1075,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>数学</tag>
         <tag>AtCoder</tag>
+        <tag>数学</tag>
         <tag>计算几何</tag>
       </tags>
   </entry>
@@ -1412,8 +1412,8 @@
       </categories>
       <tags>
         <tag>Codeforces</tag>
-        <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>猜结论</tag>
       </tags>
   </entry>
   <entry>
@@ -1436,8 +1436,8 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>猜结论</tag>
         <tag>dp</tag>
+        <tag>猜结论</tag>
         <tag>找规律</tag>
       </tags>
   </entry>
